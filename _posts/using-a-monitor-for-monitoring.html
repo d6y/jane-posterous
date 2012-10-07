@@ -1,0 +1,12 @@
+title: Using a monitor for monitoring
+date: 2012/09/17 10:46:00 -0700
+tags: [{"name":"Development","id":118832695},{"name":"photo","id":118832694}]
+author: Jane Dallaway
+alias: /using-a-monitor-for-monitoring
+
+<p>When we launched a recent project at work, I spent a few days fixated on what my log files were telling me to ensure that everything was working as expected, and that no work was slipping through gaps in the process. I'd coded it so that I'd know about any errors, but I was concerned about the resillience/robustness and stability of the solution as a whole.</p>
+<p>A couple of days later we had a bit of a hack afternoon, and I decided to concentrate on writing a quick and dirty monitoring application. We had a few spare monitors kicking around, and a spare PC, so I decided I'd write myself a quick monitoring screen using a bit of C# to crunch through my nLog log files.</p>
+<p>The display started off being very techy, using phrases that matched the technology, but this soon changed as a result of people asking questions about it, and the numbers that it was presenting. To me this was a successful start. People were interested in what it was telling them, which meant it was worthwhile putting in the additional thought to make it easier to understand.</p>
+<p><img src="http://farm9.staticflickr.com/8437/7996454617_13c21cff5e.jpg" height="375" alt="Monitoring monitor" style="display: block; margin-left: auto; margin-right: auto;" width="500" /></p>
+<p>It now focusses on showing 3 main numbers on the right side of the screen - which are Waiting, Doing and Done. The Waiting figure flicks from green to red if it hits a level where we need to be concerned and look at throwing some extra resources at the process. On the left side there are smaller numbers showing previous days figures - more for a reference of what to expect (so far we've noticed that the middle of the week seems to be busier) than for monitoring per se.</p>
+<p>It sits next to the desk that everyone passes whenever they go to the kitchen, or leave the office. It raises questions, and provides reassurance. It has been remarked upon by visitors to the office as well.&nbsp;I originally had all sorts of thoughts about more physical (and fun) ways to show this information, but actually, this just works and serves its purpose so I can't see me changing it at the moment. And also there are other bits of information that I'd like to make more visual which could be more suited to a more physical/fun solution.</p>

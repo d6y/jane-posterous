@@ -1,0 +1,14 @@
+title: Scripting stored procedures
+date: 2009/04/23 07:04:00 -0700
+tags: [{"name":"download","id":3772524},{"name":"SQLServer","id":58646313}]
+author: Jane Dallaway
+alias: /scripting-stored-procedures
+
+<p>The final helper procedure I wrote as part of my recent integration exercise was <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_scriptprocedures.sql">spu_scriptprocedures</a>.  It is a simple stored procedure which builds up a defensive SQL script for one or many stored procedures.<p />It has 4 parameters:</p>
+<ul>
+<li>@db - the name of the database. Mandatory</li>
+<li>@rolename - the name of the role for which a grant execute statement should be prepared.  Optional - no grant statement is printed if this isn't specified</li>
+<li>@proceduresToScriptCondition - the condition (based on the INFORMATION_SCHEMA.ROUTINES view) to use to select the procedures.  Optional - if not specified all stored procedures will be scripted</li>
+<li>@debug - print out the SQL being generated to help debug the code.  Optional - defaults to off</li>
+</ul>
+<p><br />Example usage:<br /><span class="code">spu_scriptprocedures @db='master', @proceduresToScriptCondition='ROUTINE_NAME = ''spu_compareprocedures'''</span><p />This has been tested on SQL Server 2005.<p />As with my other SQL helper procedures, please leave a comment if you have any suggestions on way to improve it, or bugs to report.<p />Download the script <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_scriptprocedures.sql">here</a>.</p>

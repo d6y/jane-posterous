@@ -1,0 +1,109 @@
+title: SQLBits VI
+date: 2010/04/18 00:47:00 -0700
+tags: [{"name":"event","id":8467696},{"name":"london","id":58674324},{"name":"SQLServer","id":8467699}]
+author: Jane Dallaway
+alias: /sqlbits-vi
+
+<p>On Friday I attended <a href="http://jane.dallaway.com/sqlbits-conference">my 2nd</a> <a href="http://www.sqlbits.com/">SQLBits</a> conference.  This time it was hosted at the <a href="http://www.churchhouseconf.co.uk/">Church House Conference Centre</a>, Westminster which was a good centre, with plenty of facilities and some beautiful rooms.  It also benefitted from being just a 15 minute walk from Victoria.</p>
+<p>The day started with a hot breakfast sandwich (bacon, sausage or egg) and tea or coffee, before the first session started at 9.20am.  There were 4 streams of talks, and 3 different audiences - DBAs, Developers, or Business Intelligence users. There was always at least one talk for each audience going on at any one time giving a reasonable amount of choice. Only one talk had to be cancelled due to a speaker not being able to get to London because of <a href="http://www.guardian.co.uk/world/2010/apr/17/volcano-disruption-flights-grounded-ash">the volcano</a> and this was replaced with a panel session.</p>
+<p>I chose to start by attending the talk </p>
+<p><strong><a href="http://www.sqlbits.com/Agenda/event6/Getting_Started_with_SQL_Azure/default.aspx">Getting started with SQL Azure</a></strong> by Dr Keith Burns, Data Architect, Microsoft UK (I can't find a website for Keith that has been recently updated - <a href="http://blogs.msdn.com/keithbu/">his blog</a> seems to stop in August 2007 - if you know of one, please leave me a comment)</p>
+<p><a href="http://www.flickr.com/photos/janed/4527128649/"><img src="http://farm5.static.flickr.com/4059/4527128649_99501238c0.jpg" height="375" alt="SQL Azure - Keith Burns" width="500" /></a></p>
+<p>As I <a href="http://jane.dallaway.com/uk-tech-days-visual-studio-2010-launch-a-path">mentioned the other day</a>, I am interested in finding out more about the Microsoft offering for cloud computing, so this was an obvious choice.  As this was the first talk of the day, my notes are a little fragmented as I got my self into note taking mode, but my key takeaways were:</p>
+<ul>
+<li>Reporting and the BI tools aren't on the cloud yet, so you'd need to use a local version of these tools</li>
+<li>Availability is high - each database is in 3 places, in different scale units</li>
+<li>DB performance is affected by "neighbours" on the same machine. Load balancing is happening automatically but is not perfect yet</li>
+<li>Connections may get killed if it they are for long running transactions</li>
+<li>Updates to SQL Azure will be rolled out on a 2 monthly basis</li>
+<li>Databases can currently be 1GB, or 10GB.  If you exceed this you get a nasty looking error message.  If you currently have 1GB you can upgrade via an ALTER DATABASE statement.  A 50GB offering is in the works as is spatial data</li>
+<li>Prices are in dollars, charged daily - so if you use it for one day you pay for one day - it works out that a 1GB database is approximately £72/year</li>
+</ul>
+<p>Tea and pastries time before choosing a DBA talk (the <a href="http://www.sqlbits.com/Agenda/event6/Photograph__SQL_Server_Crash_Dump_Analysis_/default.aspx">developer one</a> wasn't of real interest to me)</p>
+<p><strong><a href="http://www.sqlbits.com/Agenda/event6/Inside_the_SQL_Server_Query_Optimizer/default.aspx">Inside the SQL Server Query optimizer</a></strong> by <a href="http://blogs.msdn.com/conor_cunningham_msft/default.aspx">Conor Cunningham</a>, Principal Architect, SQL Server Query Processor</p>
+<p><a href="http://www.flickr.com/photos/janed/4527128785/"><img src="http://farm5.static.flickr.com/4023/4527128785_7ef84cd2b5.jpg" height="375" alt="Query optimizer Overview - Conor Cunningham" width="500" /></a></p>
+<p>This was a packed out talk, and I ended up sitting on the floor, as did several others.</p>
+<p><a href="http://www.flickr.com/photos/janed/4527758206/"><img src="http://farm5.static.flickr.com/4069/4527758206_b540d9a3a6.jpg" height="375" alt="Conor's session was a bit full" width="500" /></a></p>
+<p>I've never really known much about how the optimizer works, and I knew that this wasn't exactly going to be an introductory session, so I was somewhat concerned about how much of it I'd follow, and whether I'd actually gain anything out of it.  What I learnt was:</p>
+<ul>
+<li>My maths isn't as good as it once was - I'm sure I'd have understood more whilst I was at university</li>
+<li>The aim from query optimisation is "good enough" - trying to find the best query plan would take too long so good enough will usually do</li>
+<li>Query optimizer is just a set theory engine</li>
+<li>Just indexing is usually insufficient - you want to evaluate whether an index is "<a href="http://www.sql-server-performance.com/tips/covering_indexes_p1.aspx">covering</a>" as a non covering index will typically need to do a fetch from the base table (SQL Server 2005 and beyond I believe)</li>
+<li>An index can be used to return data, not just for filtering or ordering - hence the use of covering indexes</li>
+<li>
+<a href="http://msdn.microsoft.com/en-us/library/ms345434.aspx">Missing index DMV</a>s can suggest covering indexes</li>
+<li>Parallel queries are considered for "expensive" queries (&gt; 5 seconds) but not all operators support parallelism and some scalar functions will prevent parallelism</li>
+<li>User Defined Functions don't have good histogram support - so don't get optimized well - this was picked up in greater detail in Simon Sabin's talk later in the day - so forward to the end of this post if you can't wait to find out</li>
+</ul>
+<p>Another quick cup of tea before moving on to </p>
+<p><strong><a href="http://www.sqlbits.com/Agenda/event6/Non-Functional_Dependencies_-_A_talktorial_on_getting_performance_and_scalability_right_through_proper_Database_Design_and_understanding_Set_and_Relational_theory/default.aspx">Non-Functional Dependencies - A talktorial on getting performance and scalability right through proper Database Design and understanding Set and Relational theory</a></strong> by <a href="http://sqlblogcasts.com/blogs/tonyrogerson/">Tony Rogerson</a>, SQL Server MVP.  The slides for this talk are available <a href="http://sqlblogcasts.com/blogs/tonyrogerson/archive/2010/04/16/sets-surrogates-normalisation-referential-integrity-the-theory-with-example-scaling-considerations-in-sql-server.aspx">here</a></p>
+<p><a href="http://www.flickr.com/photos/janed/4527129481/"><img src="http://farm5.static.flickr.com/4049/4527129481_6c13928eaf.jpg" height="375" alt="Performance &amp; Scalability through normalisation and set theory - Tony Rogerson" width="500" /></a></p>
+<p>A discussion on some of the things to be considered when using SQL.  Amongst them were:</p>
+<ul>
+<li>a demo of the difference in performance around choosing the different kinds of surrogate keys - <a href="http://msdn.microsoft.com/en-us/library/ms186775.aspx">IDENTITY</a>, <a href="http://msdn.microsoft.com/en-us/library/aa276822(SQL.80).aspx">NEWID</a> and <a href="http://msdn.microsoft.com/en-us/library/ms189786.aspx">NEWSEQUENTIALID</a> (which was new to me) - NEWID causes fragmentation of data and so affects performance, NEWSEQUENTIALID has the benefits of NEWID but without fragmentation</li>
+<li>normalisation - a quick tour through what normalisation is and why you'd use it - I was happy to discover that the majority of this was still tucked away in my memory despite it being about 18 years since I was first taught it in University algorithms lessons</li>
+<li>discussion of the use of NOLOCK (<a href="http://sqlblogcasts.com/blogs/tonyrogerson/archive/2006/11/10/1280.aspx">he doesn't like it</a>) and the use of <a href="http://msdn.microsoft.com/en-us/library/tcbchxcb(VS.80).aspx">READ_COMMITED_SNAPSHOT</a> (<a href="http://sqlblogcasts.com/blogs/tonyrogerson/archive/2006/11/16/1345.aspx">which seemed to have problems too</a> and appeared to be able to break referential integrity) and I didn't come away with an answer of how to ensure that reading data didn't fail because of locks against the data</li>
+</ul>
+<p>And then it was lunchtime - a nicely provided brown bag lunch featuring a sandwich, bag of crisp, impossible to peel orange, a muffin and a carton of fruit juice - and time to sit outside in Deans Yard, watching people playing football on the lawn and trying to get my brain to rapidly process everything I'd heard during the morning to allow me to prepare for an afternoon featuring more of the same.  The key sponsors had all been given an opportunity to display their wares during a lunchtime spot, so I stopped by to hear about</p>
+<p><strong><a href="http://www.red-gate.com/index.htm">Redgate</a>'s new product <a href="http://www.red-gate.com/products/SQL_Source_Control/index.htm">SQL Source Control</a> </strong></p>
+<p>I've long been a fan of the <a href="http://jane.dallaway.com/database-comparison-tools-redgate-sql-compare">SQL Compare tool</a> so it seemed obvious to hear about the new product.  This demo seemed to fit in every one of their SQL related tools which meant I wish I'd made a Redgate Product Bingo card.  The premise of the tool sounds good, integrating into existing source control tools - SVN and TFS at the moment.  They also brought my attention to a free tool <a href="http://www.red-gate.com/products/SQL_Search/index.htm?utm_source=google&amp;utm_medium=cpc&amp;utm_content=unmet_need&amp;utm_campaign=sqlsearch&amp;gclid=CNqe8JHvj6ECFVVo4wodV3-WMg">SQL Search</a> which I'll be downloading and installing when I'm back in the office as it looks like it'll save me querying the INFORMATION_SCHEMA views quite so often.  Version 1 of the SQL Source Control tool doesn't manage data, which means that when you add a column that you need to be NOT NULL, you can't specify how that column should be populated for existing data - which means you get an error.  It appears that this might be a good solution whilst in early days development, but not so useful for live systems.  Deployment is via the following steps:</p>
+<ol>
+<li>get latest of scripts</li>
+<li>compare scripts to backup (via SQL Compare)</li>
+<li>let SQL Compare generate update scripts</li>
+</ol>
+<p>Redgate are running an <a href="http://www.surveymk.com/s.aspx?sm=TAZ0XWDH1YJJx7eUuE9mqg_3d_3d">early access program</a> at the moment allowing you to get hold of the tool prior to its actual release.</p>
+<p>I had a few minutes here before the next session, although there was no tea to be found before moving on to</p>
+<p><strong><a href="http://www.sqlbits.com/Agenda/event6/Denormalisation__having_your_cake_and_eating_it_/default.aspx">Denormalisation - having your cake and eating it</a></strong> by David Whitehorn and Yasmeen Ahmad</p>
+<p><a href="http://www.flickr.com/photos/janed/4527759246/"><img src="http://farm5.static.flickr.com/4041/4527759246_0867da5c19.jpg" height="375" alt="Denormalization - David Whitehorn and Yasmeen Ahmad" width="500" /></a></p>
+<p>Another packed out session</p>
+<p><a href="http://www.flickr.com/photos/janed/4527130017/"><img src="http://farm5.static.flickr.com/4043/4527130017_edc6bf5626.jpg" height="375" alt="Demormalisation session full" width="500" /></a></p>
+<p>This was quite a theoretical discussion, rather than explaining any tips and tricks on how to achieve your denormalisation.  It also covered a lot of the same normalisation content that Tony had covered before lunch.  Mainly stating that normalisation is good, but sometimes denormalization is good too - for ease of use, or reporting purposes.  Normalisation guarantees good design but only forms part of it and when you normalise you remove a lot of insert, update, delete anomalies but you don't guarantee it which then means using triggers etc to ensure there are no anomalies whatsoever.  Normalisation also comes with some performance overheads which may be removed using denormalisation.</p>
+<p>Possible methods for denormalisation are:</p>
+<ul>
+<li>Duplicated data</li>
+<li>Splitting tables</li>
+<li>Using derived columns - store calculated values</li>
+</ul>
+<p>Basically, the decision as to whether to normalise or denormalise depends what you're going to do with the data. </p>
+<p>Time for tea and donuts before the next session</p>
+<p><a href="http://www.flickr.com/photos/janed/4527756884/"><img src="http://farm5.static.flickr.com/4056/4527756884_0263951ef8.jpg" height="500" alt="Afternoon refreshments" width="375" /></a></p>
+<p><strong><a href="http://www.sqlbits.com/Agenda/event6/Improving_Database_Performance_by_Removing_the_Database/default.aspx">Improving database performance by removing the database</a></strong> by <a href="http://simonmunro.com/">Simon Munro</a></p>
+<p><a href="http://www.flickr.com/photos/janed/4527757024/"><img src="http://farm5.static.flickr.com/4021/4527757024_3afbcb8487.jpg" height="500" alt="Simon Monro" width="375" /></a></p>
+<p>This talk was about the concept of database less systems - it was pretty well attended which surprised me at a SQL conference.  One of the first things Simon said was</p>
+<blockquote class="posterous_short_quote">
+<p>This talk is not about NoSQL.  It is about why NoSQL won't die</p>
+</blockquote>
+<p>Which was a bit of a shame as I was quite keen to learn about <a href="http://en.wikipedia.org/wiki/NoSQL">NoSQL</a>.  However, he did point us in the direction of <a href="http://www.sqlbits.com/Agenda/event5/SQL__NoSQL__SomeSQL_-_A_look_at_non-relational_databases/default.aspx">this video</a> from the last SQLBits conference.</p>
+<p>Scalability is often mentioned as the reason why SQL isn't a good solution - but actually, NoSQL isn't going to be any better.  Scalability is about more than just this.  He recommended a book <a href="http://www.amazon.co.uk/Art-Scalability-Architecture-Organizations-Enterprise/dp/0137030428/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1271608418&amp;sr=8-1">The Art of Scalability</a> which gives guidance about the scalability of everything - hardware, software, processes, architectures etc</p>
+<p>Some of the takeaway points for me were:</p>
+<ul>
+<li>Before we change something, to make an effective change we need to understand why it is like it is in the first place</li>
+<li>Data is temporal - it's value changes over time</li>
+<li>Never forget that people create a lot of spreadsheets to mould data how they like it - so your database isn't likely to be the only place where data is stored no matter how much you want to believe it is</li>
+</ul>
+<p>Simon had some of the best slide decks I saw on the day, I particularly liked this one</p>
+<p><a href="http://www.flickr.com/photos/janed/4527129331/"><img src="http://farm5.static.flickr.com/4042/4527129331_4e2e45befb.jpg" height="375" alt="Simon Monro's slide deck - Do we want it to change?" width="500" /></a></p>
+<p>and this one</p>
+<p><a href="http://www.flickr.com/photos/janed/4527130139/"><img src="http://farm5.static.flickr.com/4051/4527130139_f635d672fb.jpg" height="375" alt="Data slide from Simon Monro's deck" width="500" /></a></p>
+<p>This was probably the most interesting and engaging of the talks I went to, and it challenged me to go away and think more about some of his points.</p>
+<p>The final break of the day before the final talk which for me was</p>
+<p><strong><a href="http://www.sqlbits.com/Agenda/event6/High_performance_functions/default.aspx">High Performance Functions</a></strong> by <a href="http://sqlblogcasts.com/blogs/simons/">Simon Sabin</a></p>
+<p><a href="http://www.flickr.com/photos/janed/4527130299/" title="High Performance Functions - Simon Sabin by Jane Dallaway, on Flickr"><img src="http://farm5.static.flickr.com/4012/4527130299_60dec09c70.jpg" height="375" alt="High Performance Functions - Simon Sabin" width="500" /></a></p>
+<p>I'd seen Simon present on a <a href="http://jane.dallaway.com/?sort=&amp;search=simon+sabin">couple of previous occasions</a> so I already knew that he'd be a good way to end the day.  And he was.  This followed on nicely from Conor's earlier stuff about scalar valued User Defined Functions not being optimised properly and gave some demonstrations to prove it - basically the query plan showed lots of nested loops, which indicate that each scalar function believes itself to return only one row.  Simon acknowledged the reason that UDFs, when they were first created, were welcomed by the developer community was because of the help they gave to code reuse - something that I'm sure we all strive for.  The best workaround presented was to use query hints - hash /merge - to help query plan generation, where hash join is the safest option when there is no option but to use a scalar function. </p>
+<p>But an alternative, at least in SQL 2008, is to use <a href="http://msdn.microsoft.com/en-us/library/ms189294.aspx">Inline table valued functions</a>, mainly because:</p>
+<ul>
+<li>the function returns a query</li>
+<li>they work a bit like a parameterized view</li>
+<li>the query is consumed into main query for query plan because they are resolved down to base functions</li>
+</ul>
+<p>Another alternative is to use the CLR as an alternative approach - the more complex the operation, the more chance that the CLR will perform better than SQL.<p />Simon's summary was:</p>
+<ul>
+<li>Don't use scalar fns</li>
+<li>Do convert to inline table fns</li>
+<li>Do consider using CLR</li>
+</ul>
+<p>And that was the end of SQLBits VI - the evening continued with beer, pizza and games at the conference centre, but I sloped off home with a brain full of information to process and a can of coke for my journey.  Another excellent SQLBits.</p>
+<ul>
+</ul>

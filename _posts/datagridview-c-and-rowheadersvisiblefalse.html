@@ -1,0 +1,7 @@
+title: DataGridView, C# and RowHeadersVisible=false
+date: 2005/08/02 06:01:00 -0700
+tags: [{"name":"Development","id":3773167}]
+author: Jane Dallaway
+alias: /datagridview-c-and-rowheadersvisiblefalse
+
+To make a DataGridView have deletes that work when setting <br />    <span class="code">RowHeadersVisible = false;</span> <br />it is necessary to set the SelectionMode for the DataGridView to be DataGridViewSelectionMode.FullRowSelect<br />    <span class="code">dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;</span><br />This will then allow the Deletes to work as expected<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-112298421800055741?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

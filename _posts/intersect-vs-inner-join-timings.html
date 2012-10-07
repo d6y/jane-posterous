@@ -1,0 +1,28 @@
+title: Intersect vs Inner Join - Timings
+date: 2008/08/06 11:28:00 -0700
+tags: [{"name":"code","id":58678536},{"name":"SQLServer","id":58646349}]
+author: Jane Dallaway
+alias: /intersect-vs-inner-join-timings
+
+<p>I read the article <a href="http://blog.sqlauthority.com/2008/08/03/sql-server-2005-difference-between-intersect-and-inner-join-intersect-vs-inner-join/">SQL SERVER - 2005 - Difference Between INTERSECT and INNER JOIN - INTERSECT vs. INNER JOIN</a> today and was interested in the relative speed of Inner join vs Intersect for simple matcjhes and so thought I'd make <a href="http://jane.dallaway.com/tsql-timings">another use</a> of my <a href="http://docs.google.com/leaf?id=0B_AkC4ZdTI9tMjdhNTZjMjEtNGJlMi00NzRiLTgzOTItMzA5NmMzYzY4NDNl&amp;hl=en_GB">timing code</a> to see the difference.<p />I produced a couple of very simple tables:<br /><span class="code">Summary ([ID] INT, [Name] NVARCHAR(10))<br />Detail  ([ID] INT, [Age] INT)</span><br />both with primary keys on ID and populated them both as follows:<p /><span class="code">INSERT INTO Summary<br />SELECT 1, 'Jane' UNION ALL<br />SELECT 2, 'Richard'<p />INSERT INTO Detail<br />SELECT 1, 36 UNION ALL<br />SELECT 2,40</span><p />I chose to do a very simple task - retrieve the ID for an entry which is in both Summary and Detail - note: this assumes that the ID is a foreign key constraint and the IDs are relating to the same item.<p />Using my rudimentary timing code, I think that intersect is more performant than the inner join - based on running the same query 100000 times<p /><span class="code">SELECT Summary.ID<br />FROM Summary<br />INNER JOIN Detail<br />ON Summary.ID = Detail.ID</span><p />and<p /><span class="code">SELECT ID FROM Summary<br />INTERSECT<br />SELECT ID FROM Detail </span><p />which has the following results:<br />11746</p>
+<table>
+ 
+<tr>
+<td>Description</td>
+<td>TimeInMS</td>
+</tr>
+ 
+
+<tr>
+<td>Join</td>
+</tr>
+<tr>
+<td>Intersect</td>
+<td>10203</td>
+</tr>
+
+</table>
+<p><br />I ran them both together and took a look at the actual execution plans and it does indicate that the intersect takes a little less effort - which must be down to the Seek instead of Scan in the Join'd table detail<br /><div class='p_embed p_image_embed'>
+<a href="/media/getfile/files.posterous.com/import-wdma/ACrssCDcCfoxsaGcjGFumBzjbqDxfhvBAkFicgIhGnntwBJlflHjrwmhqpCb/media_httpfarm4static_zdFIr.jpg.scaled1000.jpg"><img alt="Media_httpfarm4static_zdfir" height="328" src="/media/getfile/files.posterous.com/import-wdma/ACrssCDcCfoxsaGcjGFumBzjbqDxfhvBAkFicgIhGnntwBJlflHjrwmhqpCb/media_httpfarm4static_zdFIr.jpg.scaled500.jpg" width="500" /></a>
+</div>
+<p />So, another option for me to remember to consider when determining the best way to get at some data</p>

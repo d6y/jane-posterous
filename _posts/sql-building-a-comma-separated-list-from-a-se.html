@@ -1,0 +1,7 @@
+title: SQL: Building a comma separated list from a select clause
+date: 2009/06/24 03:08:00 -0700
+tags: [{"name":"code","id":58678491},{"name":"SQLServer","id":3772504}]
+author: Jane Dallaway
+alias: /sql-building-a-comma-separated-list-from-a-se
+
+A colleague asked me today about generating a comma separated list of values based on the results of a <span class="code">SELECT</span> statement.  A quick google later and I found <a href="http://www.sqlteam.com/article/using-coalesce-to-build-comma-delimited-string">Using COALESCE to Build Comma-Delimited String</a><p />So, for my table Continent, and my usual <span class="code">SELECT</span> of <br /><span class="code">SELECT [Name]<br />FROM Continent</span><br />with just a variable declaration and a use of <a href="http://msdn.microsoft.com/en-us/library/ms190349.aspx">COALESCE</a> and hey presto, we get our required result of <span class="code">Africa, Antarctica, Asia, Australia and Oceania, Europe, North America, South America</span><p />The code is now:<br /><span class="code">DECLARE @List VARCHAR(1000)<p />SELECT @List = COALESCE(@List + ', ', '') + Name<br />FROM Continent<p />SELECT @List</span><p />Nice and simple.  I like!<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-3714618123741685529?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

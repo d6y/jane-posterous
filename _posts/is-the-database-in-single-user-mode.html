@@ -1,0 +1,7 @@
+title: Is the database in single user mode?
+date: 2006/05/23 06:58:00 -0700
+tags: [{"name":"SQLServer","id":3773161}]
+author: Jane Dallaway
+alias: /is-the-database-in-single-user-mode
+
+One of the products I help to look after has recently gained its own upgrade process - so you put in the CD and "stuff just happens".  As part of this the database gets upgraded, and whilst doing so it is put into single user mode.  Unfortunately, one customer has had a problem, and the upgrade has failed.  We thought it might be in single user mode, but weren't convinced, so to check we ran<p /><span class="code"><br />sp_dboption [databasename], 'single user'<br /></span><p />which resulted in <p /><span class="code"><br />OptionName&nbsp;&nbsp;&nbsp;CurrentSetting <br />-----------&nbsp;&nbsp;-------------- <br />single user&nbsp;&nbsp;on<br /></span><p />to change this we simple issued <p /><span class="code"><br />sp_dboption [databasename], 'single user', false<br /></span><p />and checked again and this time it said<p /><span class="code"><br />OptionName&nbsp;&nbsp;&nbsp;CurrentSetting <br />-----------&nbsp;&nbsp;-------------- <br />single user&nbsp;&nbsp;off<br /></span><p />Success!  Now to fix the process...<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-114838931613644955?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

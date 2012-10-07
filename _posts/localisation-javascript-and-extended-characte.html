@@ -1,0 +1,19 @@
+title: Localisation, Javascript and extended character sets in Visual Studio 2005
+date: 2008/07/23 08:43:00 -0700
+tags: [{"name":"javascript","id":3772665},{"name":"localisation","id":3772666}]
+author: Jane Dallaway
+alias: /localisation-javascript-and-extended-characte
+
+I'm currently doing some work on looking into producing a localised version of a <a href="http://www.madgex.com/job-boards/">Madgex job board</a> (not dis-similar to the <a href="http://jane.dallaway.com/blog/2007/06/localisation.html">work I did this time last year</a>)and am mainly looking at the SQL Server and javascript areas whilst a colleague looks at the .NET side.  <a href="http://www.glennjones.net/Home/">Glenn</a> gave me a tip off that when he'd been doing something similar, he'd had problems with Visual Studio 2005 not saving his javascript files as UTF.<p />So, within VS2005 I created a javascript file and put 2 lines into it.  They were simply:<br /><span class="code">alert ('hello world');<br />alert('Zarys gramatyki por¢wnawczej jezyk¢w slowianskich');</span><p />I then linked this into a (very) basic HTML page<p /><span class="code">&lt;html xmlns="http://www.w3.org/1999/xhtml" &gt;<br />&lt;head&gt;<br />&nbsp;&nbsp;&lt;title&gt;i18n&lt;/title&gt;<br />&nbsp;&nbsp;&lt;script type="text/javascript" src="js/i18n.js" language="javascript"&gt;&lt;/script&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;</span><p />so that on pageload 2 alert boxes are displayed, one saying 'Hello World' and the one saying 'Zarys gramatyki por¢wnawczej jezyk¢w slowianskich'.<p />Unfortunately what is displayed instead is:<br /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_enrfh" height="126" src="/media/getfile/files.posterous.com/import-wdma/GsyeHbEzjkFkpIluCIxhIaAspxGGyguAkBcBIBCIvvwHGGtCBelBnxErxoGE/media_httpfarm4static_enrFH.jpg.scaled500.jpg" width="339" />
+</div>
+<br />which isn't exactly what I had in mind.<p />I opened the file in <a href="http://notepad-plus.sourceforge.net/uk/about.php">Notepad++</a> (my text editor of choice) to take a look at the file type and it is, as I'd expected, saved as ANSI, not UTF-8 or UTF-16<br /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_ajbcb" height="351" src="/media/getfile/files.posterous.com/import-wdma/xqrCeJCmEyosDwkAbIGEswGlEJlDGxhhylCuzdrBJzDAsnajFrzrhkrEiwCC/media_httpfarm4static_aJBcB.jpg.scaled500.jpg" width="500" />
+</div>
+<p />I used Notepad++'s menu item Format -> Convert to UTF-8 to convert this file from ANSI into UTF-8, and then re-ran my test and all works correctly as expected.  Hurrah!<p />I then repeated this using VS2008 and found that this is one of the fixes over VS2005.<p />So, the alert now correctly displays:<br /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_ljccv" height="126" src="/media/getfile/files.posterous.com/import-wdma/ohpondnBelFgyaifvDivuCmiHxwJqDtlaHJvoHisbmlkJoialqDpJmshkDzk/media_httpfarm4static_lJcCv.jpg.scaled500.jpg" width="329" />
+</div>
+<br />and when opened in Notepad++ the file is now, correctly, UTF-8.<br /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_ksfwy" height="351" src="/media/getfile/files.posterous.com/import-wdma/kqliGremfChfAHjjsFodlmHqEEnerrjpvqBnyeJciJbDhkCInGzAgjyAhkcq/media_httpfarm4static_ksfwy.jpg.scaled500.jpg" width="500" />
+</div>
+<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-7116707565347070945?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

@@ -1,0 +1,7 @@
+title: SSIS Variables and Deadlock
+date: 2006/09/19 05:29:00 -0700
+tags: [{"name":"SQLServer","id":58646684}]
+author: Jane Dallaway
+alias: /ssis-variables-and-deadlock
+
+I've been having problems with deadlock on SSIS variables.  The main issue is that I have a script item, which has a readwrite variable of strErrorDescription.  In the case of a problem this gets populated.  I have an onError event tied to this script item.  That event uses strErrorDescription to populate the reason for the error.  The onError event triggers before the script item finishes properly, and so before the variable gets released.  After a bit of headscratching I found this <a href="http://forums.microsoft.com/MSDN/ShowPost.aspx?PostID=593200&amp;SiteID=1">post</a> on the MSDN forums which describes the problem, and a workaround.  I've added <span class="code">Dts.Variables.Unlock()</span> to the code, just after the variable is written to, and this seems to do the trick.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-115866537198352719?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

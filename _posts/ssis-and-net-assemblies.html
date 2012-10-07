@@ -1,0 +1,7 @@
+title: SSIS and .NET Assemblies
+date: 2006/08/03 05:58:00 -0700
+tags: [{"name":".NET","id":58676445},{"name":"SQLServer","id":58676443}]
+author: Jane Dallaway
+alias: /ssis-and-net-assemblies
+
+The internet is a great place, there I was scratching my head trying to work out how to get my .NET assembly to appear in the references section of an Integration Services Script Task when I stumbled across <a href="http://www.developerdotstar.com/mag/bios/dread.html">Daniel Read</a>'s helpful <a href="http://www.developerdotstar.com/community/node/333">Fun With SSIS, Script Tasks, and the GAC (Global Assembly Cache)</a>.  In a nutshell, and I'm sure Daniel <a href="http://www.developerdotstar.com/community/node/333">puts it much better than I can</a>, to get an assembly to appear in the Add references dialog you have to both register your dll into the GAC AND copy the file into the appropriate framework directory - yeuch!  <p />From the <a href="http://www.amazon.co.uk/gp/product/0764584359/ref=sr_11_1/202-5908120-8586210?ie=UTF8/richarddallaway">Professional SQL Server 2005 Integration Services</a> book <i>SSIS can only use assemblies located in the .NET framework installation folder for version 2.0</i><p />So far this is the only yeuch moment I've had with <a href="http://msdn2.microsoft.com/en-us/library/ms141026.aspx">SSIS</a><div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-115460696179511958?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

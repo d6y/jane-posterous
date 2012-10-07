@@ -1,0 +1,24 @@
+title: I did battle with Windows Jenkins Server using a Git repository hosted at Unfuddle and won. Finally
+date: 2012/09/24 08:59:45 -0700
+tags: [{"name":"Development","id":119672854},{"name":"nts","id":119672853}]
+author: Jane Dallaway
+alias: /setting-up-a-windows-jenkins-server-using-git
+
+<p>This is most definitely filed under <a href="http://jane.dallaway.com/tag/nts">note to self</a>. This may be of no interest to anyone else, but I'm jotting these notes down before I forget the details (and pain). If anyone else gets any benefit from them - you're welcome.</p>
+<p>After trying a lot of different things on two different machines I've finally got the continuous integration service&nbsp;<a href="http://jenkins-ci.org/">Jenkins</a> connecting to our <a href="http://jane.dallaway.com/tag/nts">unfuddle</a> account and cloning a repository. Sounds really simple, doesn't it!</p>
+<p>The best notes I found were <a href="http://computercamp.cdwilson.us/jenkins-git-clone-via-ssh-on-windows-7-x64">these</a>, although I ended up installing on a windows xp machine instead but that mattered little.&nbsp;There are some useful clues <a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin">here</a> as well. Both of these pointed out that Jenkins was running under the local system account and that therefore I had to make sure private and public keys were visible to that account and not just the domain account.</p>
+<p>After an initial attempt at getting it set up on my development machine, I decided to comandeer one of my servers and try again from scratch, following <a href="http://Local System accoun">these instructions</a>.</p>
+<p>The only deviations were:</p>
+<ul>
+<li>I used the SSH-Keygen exe installed with <a href="http://msysgit.github.com/">Git for Windows</a> to generate the public and private SSH keys (id_rsa and id_rsa.pub) (rather than PuttyGen)</li>
+<li>I created a new user account at <a href="http://unfuddle.com/">unfuddle</a> for my jenkins service to use</li>
+<li>I added the SSH public key to my jenkins user at unfuddle to tie the two things together</li>
+<li>There is no point trying the <span style="font-size: x-small;">"C:\Git\bin\ssh.exe" -T <a href="mailto:git@your.git.server">git@your.git.server</a></span> part in the instructions for unfuddle as you will get a <span style="font-size: x-small;">Need SSH_ORIGINAL_COMMAND</span> response. This is because unfuddle disallows SSHing to anything other than git repositories. This is an expected response when following those instructions. Skip it and move on.</li>
+<li>I used a command prompt via <a href="http://technet.microsoft.com/en-us/sysinternals/bb896649.aspx">PSTools</a>\PSExec and did an explicit clone as git clone&nbsp;git@&lt;subdomain&gt;.unfuddle.com:&lt;subdomain&gt;/&lt;repository&gt;.git to ensure that everything worked. Which it did. Then I moved back to Jenkins.</li>
+</ul>
+<p>Finally, within Jenkins set up the url for git as being&nbsp;git@&lt;subdomain&gt;.unfuddle.com:&lt;subdomain&gt;/&lt;repository&gt;.git ignoring the fact that the help says that :</p>
+<blockquote class="posterous_medium_quote">
+<p>This can be a URL or a local file path. Note that for super-projects (repositories with submodules), only a local file path or a complete URL is valid. For instance, user@host:/path is not a valid URL.</p>
+</blockquote>
+<p>Then running a build (basically doing nothing more than getting the files from git at this stage) resulted in my&nbsp;C:\Program Files\Jenkins\jobs\&lt;jenkins job name&gt;\workspace having a complete set of files. Hurrah!&nbsp;</p>
+<p>Now to make it build...</p>

@@ -1,0 +1,7 @@
+title: Debugging Stored Procedures
+date: 2007/06/13 06:50:00 -0700
+tags: [{"name":"SQLServer","id":58678035}]
+author: Jane Dallaway
+alias: /debugging-stored-procedures
+
+In SQL 2000 you could <a href="http://www.15seconds.com/issue/050106.htm">debug stored procedures through Query Analyser</a>. Today I needed to work out how to do it in SQL 2005.  The only way I found is via Visual Studio 2005. Register the database in Server Explorer, then within Server Explorer navigate to the stored procedure to debug, right click on it and select "Step into stored procedure".  If parameters are required then you'll be displayed a dialog allowing you to put in appropriate values.  From here on it is just the same as debugging normal code using VS 2005 - F10 to step over, F11 to step into etc.  <p />Happy debugging!<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-1100881360469837117?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

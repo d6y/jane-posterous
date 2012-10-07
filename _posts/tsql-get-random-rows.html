@@ -1,0 +1,7 @@
+title: TSQL: Get random rows
+date: 2007/08/14 09:30:00 -0700
+tags: [{"name":"SQLServer","id":3772916}]
+author: Jane Dallaway
+alias: /tsql-get-random-rows
+
+We needed to return a random subset of rows from a database, and someone pointed out the <a href="http://msdn2.microsoft.com/en-us/library/ms190348.aspx">newid()</a> function.<p /><span class="code">SELECT *<br />FROM Company<br />ORDER BY newid()</span><p />For the application concerned it works well, but as it says in <a href="http://msdn2.microsoft.com/en-us/library/aa175776(sql.80).aspx">Random Sampling in T-SQL</a> "However, it's evaluated by the operating system, not T-SQL. In addition, while unique identifiers can be ordered, the comparison functions aren't documented. Unlike Rand(), NewID() has not been designed for use as a statistically valid random number generator." so it obviously must be used with caution.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-6470256699000865508?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

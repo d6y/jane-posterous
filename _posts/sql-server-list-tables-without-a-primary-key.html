@@ -1,0 +1,20 @@
+title: SQL Server - List tables without a primary key
+date: 2010/05/12 09:29:00 -0700
+tags: [{"name":"SQLServer","id":10128817}]
+author: Jane Dallaway
+alias: /sql-server-list-tables-without-a-primary-key
+
+<div class="posterous_bookmarklet_entry">
+<blockquote>
+<div>
+<h3><a href="http://dba4life.wordpress.com/2008/06/07/how-do-i-list-all-tables-without-a-primary-key/">How do I list all tables WITHOUT a primary key?</a></h3>
+<p>Run the following SQL code:</p>
+<blockquote>
+<p>SELECT T.TABLE_NAME AS 'Tables without PKs'<br /> FROM INFORMATION_SCHEMA.TABLES AS T<br /> WHERE NOT EXISTS<br /> (SELECT *<br /> FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC<br /> WHERE CONSTRAINT_TYPE = 'PRIMARY KEY'<br /> AND T.TABLE_NAME = TC.TABLE_NAME)<br /> AND T.TABLE_TYPE = 'BASE TABLE'</p>
+</blockquote>
+</div>
+</blockquote>
+<div class="posterous_quote_citation">via <a href="http://dba4life.wordpress.com/2008/06/07/how-do-i-list-all-tables-without-a-primary-key/">dba4life.wordpress.com</a>
+</div>
+<p>Another script used as part of my performance tuning, nice and simple and making use of the INFORMATION_SCHEMA views rather than the sys tables</p>
+</div>

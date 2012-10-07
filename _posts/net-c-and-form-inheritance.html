@@ -1,0 +1,7 @@
+title: .Net, C# and form inheritance
+date: 2005/07/20 05:16:00 -0700
+tags: [{"name":".NET","id":58678778}]
+author: Jane Dallaway
+alias: /net-c-and-form-inheritance
+
+I've recently had my first opportunity to dabble with c# and <a href="http://lab.msdn.microsoft.com/vs2005/Default.aspx">.Net 2005 beta 2</a> and have had my first occasion to inherit from a form.  I had a base form which requests certain information from the user.  I needed a similar form, with an additional prompt.  <p />The obvious choice was to inherit from the base form.  I tried doing this only to discover that all the controls were locked and I couldn't rearrange the form to add my new parameter in a more obvious location.  This seemed like a ridiculous limitation and it took a bit of <a href="http://www.google.com/search?q=define%3A+googling">googling</a>, but eventually we found <a href="http://www.expresscomputeronline.com/20031208/techspace01.shtml">the answer</a>, set the controls in the base form to have a Modifier value of protected or public.  This does the trick!<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-112185876549148753?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

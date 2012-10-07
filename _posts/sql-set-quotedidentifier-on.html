@@ -1,0 +1,7 @@
+title: SQL: Set QUOTED_IDENTIFIER ON
+date: 2008/12/23 05:17:00 -0800
+tags: [{"name":"SQLServer","id":3772559}]
+author: Jane Dallaway
+alias: /sql-set-quotedidentifier-on
+
+The following error was appearing when running a query this morning<br /><span class="code">SELECT failed because the following SET options have incorrect settings: 'QUOTED_IDENTIFIER'. Verify that SET options are correct for use with indexed views and/or indexes on computed columns and/or query notifications and/or xml data type methods.</span><p />After a bit of examination, it appears that whilst the majority of our stored procedures include <br /><span class="code">SET ANSI_NULLS ON<br />GO<br />SET QUOTED_IDENTIFIER ON<br />GO<br /></span><br />in their definitions, some later updates which drop and recreate those stored procedures do not, and these have been created with quoted_identifier set to off.<br />To check which stored procedures are affected, I ran the following SQL<br /><span class="code">SELECT OBJECT_NAME (object_id) FROM sys.sql_modules<br />WHERE uses_quoted_identifier = 0</span><br />which gave me a list of the affected ones to go and fix and just recreated those stored procedures.<br />I also updated the database to have this ON by default by<br /><span class="code">ALTER DATABASE [] SET QUOTED_IDENTIFIER ON<br />GO</span><div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-4654666858318586419?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

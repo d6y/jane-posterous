@@ -1,0 +1,7 @@
+title: spu_generateInsert - handle unicode characters
+date: 2009/06/08 14:00:00 -0700
+tags: [{"name":"download","id":58674230},{"name":"SQLServer","id":58646311}]
+author: Jane Dallaway
+alias: /spugenerateinsert-handle-unicode-characters
+
+<p>I updated <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">spu_generateinsert</a> again today when one of my colleagues reminded me that I needed to <a href="http://support.microsoft.com/kb/239530">prefix my strings with a capital N</a> to ensure that any unicode values go into the database correctly.  <p />So now instead of the call <span class="code">spu_generateinsert @table = 'LanguageData'</span> producing<br /><span class="code">INSERT INTO [LanguageData] ([liID], [Value])VALUES (7,'D''Artagnan raconte qu''&agrave; sa premi&egrave;re visite &agrave;')</span><br />it produces<br /><span class="code">INSERT INTO [LanguageData] ([liID], [Value])VALUES (7,N'D''Artagnan raconte qu''&agrave; sa premi&egrave;re visite &agrave;')</span><p />As usual, the script is available <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">here</a><br />And again as usual, leave me a comment if you think of some new functionality I should include, or any issues you come across.</p>

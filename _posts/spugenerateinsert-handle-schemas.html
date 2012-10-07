@@ -1,0 +1,20 @@
+title: spu_generateinsert - handle schemas
+date: 2010/09/24 10:11:00 -0700
+tags: [{"name":"download","id":58674197},{"name":"SQLServer","id":58646172}]
+author: Jane Dallaway
+alias: /spugenerateinsert-handle-schemas
+
+<p>Earlier today, <a href="http://greymetis.co.uk/">James</a> <a href="http://twitter.com/jamesbradshaw/status/25399779480">tweeted</a>&nbsp;</p>
+<blockquote class="posterous_short_quote">
+<p>Pointing a colleague to the excellent spu_GenerateInsert by @JaneFoth</p>
+</blockquote>
+<p>to which I <a href="http://twitter.com/JaneFoth/status/25400131396">responded with</a></p>
+<blockquote class="posterous_short_quote">
+<p>@jamesbradshaw&nbsp;your name is even mentioned in the version history "suggestion by James Bradshaw"</p>
+</blockquote>
+<p>and to which he responded with</p>
+<blockquote class="posterous_short_quote">
+<p>@JaneFoth&nbsp;I have have just had the pointed out in the office. I have just to mod it to cope with schema names do you want my editions?</p>
+</blockquote>
+<p>To which I of course said yes. &nbsp;James sent the updated procedure through, and spurred on by his activity, I also added a fix I'd been considering for a while - to allow the procedure to deal with tablenames which have a . in them, after having recently discovered that this was valid (basically by wrapping the table name in [ and ]).</p>
+<p>So, no updates in over a year, and then 2 in one day. &nbsp;Must be the same as how it is with buses... &nbsp;Anyway, as usual the updated procedure can be found <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">here</a>&nbsp;and is listed on my <a href="http://jane.dallaway.com/pages/downloads-12">downloads page</a>.</p>

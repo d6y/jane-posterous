@@ -1,0 +1,17 @@
+title: SQL Server Execution Plans - what should I look for in SQL Server 2005?
+date: 2010/05/11 07:15:00 -0700
+tags: [{"name":"nts","id":10061088},{"name":"SQLServer","id":58646264}]
+author: Jane Dallaway
+alias: /sql-server-execution-plans-what-should-i-look
+
+<p>I've spent some time today reviewing the query plans for my current project, and as ever I keep forgetting what I'm trying to get to.  I found <a href="http://myitforum.com/cs2/blogs/jnelson/archive/2007/11/16/108354.aspx#">this useful page</a> which reminded me of the orders - from best to worst:</p>
+<blockquote><ol>
+<li><span style="font-family: Times New Roman, serif; font-size: 16px;">CLUSTERED INDEX SEEK - Very fast and efficient - the table is physically ordered according to specified column(s) and SQL can go find it AND since all of the data is phsically ordered right, can pull the data sequentially</span></li>
+<li><span style="font-family: Times New Roman, serif; font-size: 16px;">INDEX SEEK - which is very fast and efficient.  The SQL server knows pretty much where the data is and can go directly to it and seek out the rows it needs.  The data isn't ordered in the DB by the fields in the index so it's likely not pulling the data sequentially like it is in the CLUSTERED INDEX SEEK, but it can still translate to a massive improvement in query execution cost/speed.</span></li>
+<li><span style="font-family: Times New Roman, serif; font-size: 16px;">INDEX SCAN - which as you can see still implies using the index, but it doesn't know exactly where the data is, so it may scan the whole index or a partial range of the index to find it's data. Can be very slow and costly, but still scans through the index as opposed to scanning the physical table. </span></li>
+<li><span style="font-family: Arial, Helvetica; font-size: 12px;"><span style="font-size: 12pt; font-family: Times New Roman, serif;">CLUSTERED INDEX SCAN - </span><span style="font-size: 12pt; font-family: Times New Roman, serif;">a clustered index is really not much more than a table with the data physically ordered by specified columns.  So if you see a CLUSTERED INDEX SCAN, it's pretty much the same as a TABLE SCAN for performance because SQL has to physically search through every single row in the clustered index (which really IS the table).  </span></span></li>
+<li><span style="font-family: Times New Roman, serif; font-size: 16px;">TABLE SCAN - slow, inefficient.  SQL has to physically look at every single row in the table. Shouldn't see this often, if you do, you may need to rewrite something or add indexes.</span></li>
+</ol></blockquote>
+<p><span style="font-family: Arial, Helvetica; font-size: 12px;">
+<p>I've managed to remove all the scans, and everything is now at least using a seek.</p>
+</span></p>

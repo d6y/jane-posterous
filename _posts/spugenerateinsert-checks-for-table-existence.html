@@ -1,0 +1,7 @@
+title: spu_generateinsert - checks for table existence
+date: 2009/04/16 11:28:00 -0700
+tags: [{"name":"download","id":3772540},{"name":"SQLServer","id":58674248}]
+author: Jane Dallaway
+alias: /spugenerateinsert-checks-for-table-existence
+
+<p>Earlier today I had a user error using <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">spu_generateinsert</a> and couldn't work out what was wrong.  It turns out I had specified the table name wrongly.  So, I've updated the procedure to check for the existence of the table and to report if there isn't one.  Hopefully, this will stop me making the same mistake again :-)<p />Download the updated script <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">here</a>.<p />I also noticed today that the PRINT command only outputs 8000 bytes worth of data - so if the contents of a VARCHAR(MAX) is larger than this the output will be truncated.  I'm mulling over various fixes for this but in the mean time have noted it as a known issue in the SQL.</p>

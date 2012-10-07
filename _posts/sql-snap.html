@@ -1,0 +1,151 @@
+title: SQL Snap
+date: 2008/08/20 13:17:00 -0700
+tags: [{"name":"madgex","id":58674697},{"name":"SQLServer","id":58646327}]
+author: Jane Dallaway
+alias: /sql-snap
+
+<p>At last September's BarCamp Brighton I saw the <a href="http://www.flickr.com/photos/janed/1352499862/">CSS Specificity Snap cards</a> and this gave me an idea.  So, armed with a concept of showing the different ways of producing the same output using the SQL Server 2005 flavour of SQL I started generating SQL statements.  <a href="http://www.beautyandruin.com/monkeys/">Alex</a> was kind enough to make them pretty, and last week I ran a <a href="http://jane.dallaway.com/tag/ilp">Madgex ILP</a> session to play.<p />There are 26 cards in my pack, each card has a SQL statement, and a letter.  The letter is used for the crib sheet to allow me to easily spot the matches.<p /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_qdzco" height="375" src="/media/getfile/files.posterous.com/import-wdma/IwiIpgDuIAlmIBdgjyquwduCgsFzDHdGlveIAcGjGFmItwmmjlubCoqxzvCn/media_httpfarm4static_qdzCo.jpg.scaled500.jpg" width="500" />
+</div>
+<p />I prepared by producing two piles of 13 cards, with a match in both piles.  I then put one pile in the middle of the table face down, and dealt out the rest of the cards to the 5 people who were playing.  I placed the 3 spare cards on the table face up so that we could all see them and proceeded to turn them over one by one.  When a card was turned over everyone looked at the SQL on the overturned card, and checked their cards and the spare cards to see if there was a match.  If a match wasn't spotted then I explained what the SQL was doing, and at only one point did I have to say which letter the matching card would have.  During this I had quite a few comments about functions people didn't recognise - especially <a href="http://www.mssqltips.com/tip.asp?tip=1521">COALESCE</a> and <a href="http://weblogs.sqlteam.com/jeffs/archive/2007/09/27/sql-nullif-function.aspx">NULLIF</a>.  I also explained some of the performance, and functional differences between the SQL statements when they were seen - so for instance I explained the differences between <a href="http://vadivel.blogspot.com/2004/06/delete-vs-truncate-statement.html">DELETE and TRUNCATE</a> but I still I have these as a match because they can provide the same result and provided an interesting talking point.<p />The second game we played was a memory game where I placed all of the cards on the table face down and everyone turned over 2 cards at a time.  If the SQL on the cards resulted in the same output, then it was a match and they took the cards away.  If they didn't then the cards got turned back over and the next person had a go.<p />All in all this session took about 30 minutes, and resulted in quite a lot of noise and laughter (so much so that someone came and closed the door of the room we were in).  <p />The following table contains the Letter Code, SQL statement, and the matching Letter code.  They are ordered so that the matches are grouped together.</p>
+<table>
+ 
+<tr>
+<td>Code</td>
+<td>SQL</td>
+<td>Match</td>
+</tr>
+ 
+
+<tr>
+<td>V</td>
+<td>SELECT CAST(GETDATE() AS VARCHAR(11))</td>
+<td>G</td>
+</tr>
+<tr>
+<td>G</td>
+<td>SELECT CONVERT (VARCHAR(11), GETDATE())</td>
+<td>V</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>SELECT name FROM sysobjects WHERE xtype = 'P'</td>
+<td>Q</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>SELECT name FROM sys.procedures</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>D</td>
+<td>SELECT sysobjects.name, syscolumns.name FROM sysobjects INNER JOIN syscolumns ON sysobjects.id = syscolumns.id WHERE sysobjects.xtype = 'u'</td>
+<td>A</td>
+</tr>
+<tr>
+<td>A</td>
+<td>SELECT sysobjects.name, syscolumns.name FROM sysobjects, syscolumns WHERE sysobjects.id = syscolumns.id AND sysobjects.xtype = 'u'</td>
+<td>D</td>
+</tr>
+<tr>
+<td>U</td>
+<td>SELECT getdate()</td>
+<td>O</td>
+</tr>
+<tr>
+<td>O</td>
+<td>EXEC('SELECT getdate()')</td>
+<td>U</td>
+</tr>
+<tr>
+<td>J</td>
+<td>DELETE FROM Test</td>
+<td>T</td>
+</tr>
+<tr>
+<td>T</td>
+<td>TRUNCATE TABLE Test</td>
+<td>J</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>SELECT ISNULL(NULL,1)</td>
+<td>W</td>
+</tr>
+<tr>
+<td>W</td>
+<td>SELECT COALESCE(NULL,1)</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>P</td>
+<td>SELECT [name], xtype FROM sysobjects ORDER BY xtype</td>
+<td>M</td>
+</tr>
+<tr>
+<td>M</td>
+<td>SELECT [name], xtype FROM sysobjects ORDER BY 2</td>
+<td>P</td>
+</tr>
+<tr>
+<td>H</td>
+<td>SELECT NULLIF(1,1)</td>
+<td>R</td>
+</tr>
+<tr>
+<td>R</td>
+<td>SELECT CASE 1 WHEN 1 THEN NULL ELSE 1 END</td>
+<td>H</td>
+</tr>
+<tr>
+<td>I</td>
+<td>SELECT [name], xtype FROM sysobjects ORDER BY 1</td>
+<td>N</td>
+</tr>
+<tr>
+<td>N</td>
+<td>SELECT [name], xtype FROM sysobjects ORDER BY [name]</td>
+<td>I</td>
+</tr>
+<tr>
+<td>X</td>
+<td>SELECT CAST(GETDATE() AS VARCHAR(20))</td>
+<td>F</td>
+</tr>
+<tr>
+<td>F</td>
+<td>SELECT CONVERT (VARCHAR(20), GETDATE())</td>
+<td>X</td>
+</tr>
+<tr>
+<td>S</td>
+<td>SELECT name FROM syscolumns WHERE id = ( SELECT id FROM sysobjects WHERE xtype = 'u' AND name = 'Jobs' )</td>
+<td>K</td>
+</tr>
+<tr>
+<td>K</td>
+<td>WITH objects (id) AS<br />( SELECT id FROM sysobjects WHERE xtype = 'u' AND name = 'Jobs' ) SELECT name FROM syscolumns INNER JOIN objects ON syscolumns.id = objects.id</td>
+<td>S</td>
+</tr>
+<tr>
+<td>L</td>
+<td>INSERT INTO Job (JobID, PrimaryJobTypeID) VALUES (1,1)</td>
+<td>B</td>
+</tr>
+<tr>
+<td>B</td>
+<td>INSERT INTO Job (JobID, PrimaryJobTypeID) SELECT 1,1</td>
+<td>L</td>
+</tr>
+<tr>
+<td>C</td>
+<td>DECLARE @sMessage AS VARCHAR(20) SET @sMessage = 'Hello'</td>
+<td>E</td>
+</tr>
+<tr>
+<td>E</td>
+<td>DECLARE @sMessage AS VARCHAR(20) SELECT @sMessage = 'Hello'</td>
+<td>C</td>
+</tr>
+
+</table>

@@ -1,0 +1,11 @@
+title: How the inconvenience of small network outages has led to more robust code
+date: 2012/08/15 13:32:00 -0700
+tags: [{"name":"Development","id":115526108}]
+author: Jane Dallaway
+alias: /how-the-inconvenience-of-small-network-outage
+
+<p>We've been having occasional, short, network dropouts in the office since I started (I'm told they predate me so I'm not taking responsibility for them). The project I've been working on is a suite of simple applications that each do one part of a process and that are scheduled to run at appropriate intervals passing information, in the form of text files mainly, to the next process in the chain. </p>
+
+<p>During the development phase we did a lot of long running testing, leaving it all running overnight and over weekends, and the network outages hit quite hard initially. By the time we got the systems into production last week the applications were all robust enough to cope with network outages, reset themselves to a known stage and wait for the next opportunity to start again. Without the office having these occasional outages I doubt I'd have taken quite as much time to focus on this particular aspect of the development in this initial phase, probably choosing to add an extra feature instead and scheduling the robustness piece somewhere down the line. Last night a couple of the servers unexpectedly ran a Windows update overnight last night for instance and disappeared for a short while but the suite of applications kept on working pretty well and we could still process the workload, even if it was in a slightly reduced capacity.</p>
+
+<p>So, whilst the network outages are annoying they've resulted in a more robust and resilient suite of applications. This is definitely something I'll be mindful of in the future.</p>

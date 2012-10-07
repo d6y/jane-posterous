@@ -1,0 +1,12 @@
+title: Maximum length of SQL Server 2005 objects seems to be 128 characters
+date: 2010/07/28 03:41:00 -0700
+tags: [{"name":"code","id":58678443},{"name":"SQLServer","id":58646205}]
+author: Jane Dallaway
+alias: /maximum-length-of-sql-server-2005-objects-see
+
+<p>I couldn't find the answer to the maximum length of the name of a view in SQL Server 2005 online today, although I did find someone's helfpul blog post about the <a href="http://chopeen.blogspot.com/2006/11/maximum-column-name-length-in-sql.html">maximum length of a column name in SQL Server 2005</a>, so a quick experiment later using the following code:</p>
+<p>CREATE VIEW [vw_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890]<br /> AS<br /> SELECT * FROM Address</p>
+<p>Resulted in:<br /> Msg 103, Level 15, State 4, Line 1<br /> The identifier that starts with'vw_1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234' is too long. Maximum length is 128.</p>
+<p>Another experiment, this time for table creation</p>
+<p>CREATE TABLE [1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890]<br /> (<br />  [Id] [int] NOT NULL,<br />  [Line1] [varchar](50) NOT NULL,<br />  [Line2] [varchar](50) NULL,<br />  [City] [varchar](50) NOT NULL,<br />  CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED <br />  ([Id] ASC) <br /> )ON [PRIMARY]</p>
+<p>Resulted in:<br />Msg 103, Level 15, State 4, Line 1<br />The identifier that starts with '1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_1234567' is too long. Maximum length is 128.</p>

@@ -1,0 +1,7 @@
+title: Generate SQL Insert statement from table data
+date: 2007/11/13 10:39:00 -0800
+tags: [{"name":"download","id":58646497},{"name":"SQLServer","id":3772829}]
+author: Jane Dallaway
+alias: /generate-sql-insert-statement-from-table-data
+
+<p>Years ago I stumbled upon a helpful SQL script (SQL Server 2000 and 2005) written by a chap called Keith E Kratochvil which you could point at a table in your database and which would then generate a series of Insert scripts.<p />I made some amendments at the time and over the next few years to make a bit more useful to me for some specific requirements, including the ability to take bits of a where clause to restrict the data coming back, allowing me to script subsets of data.  I've carried this script with me from company to company, and decided it was time to share the updated script. <p />One word of advice, before running the generated inserts, do a replace of 'NULL' with NULL as I failed to get NULLs appended to a string without causing the whole string to become NULL.<p />The procedure is available <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">here</a> so feel free to take a look and use it if you find it helpful.</p>

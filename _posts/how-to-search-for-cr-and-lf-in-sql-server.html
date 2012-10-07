@@ -1,0 +1,7 @@
+title: How to search for CR and LF in SQL Server
+date: 2008/12/10 10:21:00 -0800
+tags: [{"name":"SQLServer","id":58677947}]
+author: Jane Dallaway
+alias: /how-to-search-for-cr-and-lf-in-sql-server
+
+A colleague asked me today if I there was a way of checking if a varchar field in our database contained a carriage return and line feed.<p />To take a look at this I used a simple table with just a varchar column on it - defined as<br /><span class="code">CREATE TABLE [dbo].[MyTest]<br />(<br />&nbsp;&nbsp;&nbsp;[Test1] [varchar](20) NULL<br />) ON [PRIMARY]</span><p />and inserted some data with a carriage return in it<p /><span class="code">INSERT INTO MyTest(Test1)<br />VALUES<br />('This is<br />my data')</span><p />When looked at through the grid view of SQL Server Management Studio it appears as<br /><span class="code">This is my data</span> and this is where the confusion was coming in - those control characters had been replaced with spaces - so how could we tell what they were.<p />When we looked at the data through through the text view of SQL Server Management Studio it appears as<br /><span class="code">This is<br />my data</span><p />And to double check I did a search using SQL as<br /><span class="code">SELECT *<br />FROM MyTest<br />WHERE Test1 LIKE '%' + CHAR(13) + '%'</span><div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-6076318963519208369?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

@@ -1,0 +1,12 @@
+title: Update - Generate Insert statement from table for SQL Server
+date: 2008/01/03 11:32:00 -0800
+tags: [{"name":"download","id":3772806},{"name":"SQLServer","id":3772807}]
+author: Jane Dallaway
+alias: /update-generate-insert-statement-from-table-f
+
+<p>I had a bit of spare time today, so I've updated <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">spu_generateInsert.sql</a> to fix a couple of annoyances:</p>
+<ul>
+<li>it now handles text and ntext appropriately - wrapping the data in single quotes, and escaping any single quotes as appropriate - it also displays a warning indicating that text data will be converted into varchar(8000) </li>
+<li>it now handles NULL values appropriately, and so the step in my <a href="http://jane.dallaway.com/generate-sql-insert-statement-from-table-data">previous post on this procedure</a> about "replace of 'NULL' with NULL" can now be safely ignored.</li>
+</ul>
+<p>I've put comments into the stored procedure to indicate the changes.<p />I've tested this on SQL Server 2005 but I'd recommend testing it and checking it yourself before relying on it.<p />Download it <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">here</a></p>

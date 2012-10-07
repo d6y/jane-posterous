@@ -1,0 +1,8 @@
+title: SQL Server 2005 restore error message
+date: 2008/12/19 06:00:00 -0800
+tags: [{"name":"code","id":58674530},{"name":"nts","id":3772570},{"name":"SQLServer","id":58674527}]
+author: Jane Dallaway
+alias: /sql-server-2005-restore-error-message
+
+<p>This is definitely a note to self, as I'm sure to have this happen again.  I received the following error message this morning when attempting to restore a database<p /><span class="code">Msg 3219, Level 16, State 3, Line 2 <br />The file or filegroup "MyDB_log" cannot be selected for this operation.</span><br />using script similar to the following<p /><span class="code">RESTORE database [MyDB] <br />FILE = N'MyDB' , <br />FILE = N'MyDB_log' , <br />FROM disk = N'C:\MyDB_backup.bak' <br />WITH  FILE = 1,  <br />MOVE N'MyDB' TO N'c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\MyDB.mdf',  <br />MOVE N'MyDB_log' TO N'c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\MyDB.ldf',  <br />NOUNLOAD,  REPLACE,  STATS = 10<br />GO</span><p />To fix this, I simply removed the lines starting with FILE and ran it again.  Success!  So the final, working script was<p /><span class="code">RESTORE database [MyDB] <br />FROM disk = N'C:\MyDB_backup.bak' <br />WITH  FILE = 1,  <br />MOVE N'MyDB' TO N'c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\MyDB.mdf',  <br />MOVE N'MyDB_log' TO N'c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\MyDB.ldf',  <br />NOUNLOAD,  REPLACE,  STATS = 10<br />GO</span></p>
+<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-6963189795104324351?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

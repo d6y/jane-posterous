@@ -1,0 +1,29 @@
+title: Database Comparison tools: Redgate SQL Compare Review
+date: 2008/09/03 02:36:00 -0700
+tags: [{"name":"review","id":3772628},{"name":"SQLServer","id":58668999},{"name":"tool","id":3772626}]
+author: Jane Dallaway
+alias: /database-comparison-tools-redgate-sql-compare
+
+<p>I first started using <a href="http://www.red-gate.com/products/SQL_Compare/index.htm">Redgate SQL Compare</a> when I was at Glass's in 2003/04 and I'm still using it 4 years later.  Over those years the product has evolved and new products have been released from Redgate.  I have only ever used it for SQL Server (7, 2000 and 2005) and so can't comment on it's appropriateness or reliableness targeting other database products.<p />At the time that I first found SQL Compare, there weren't that many tools available that did a reliable job of comparing objects and producing scripts of the differences.  I know that one of my colleagues at <a href="http://madgex.com/">Madgex</a> is a fan of <a href="http://www.sqldelta.com/">SQL Delta</a>.  One day we sat down to compare the tools and discovered that there really wasn't much to choose between them.<p />I have always used SQL Compare more as a tool to check my scripted updates, rather than to produce those scripts.  After a bad experience at a previous company when a member of my team managed to empty an articles table rather than update it when manipulating the database via Enterprise Manager I've habitually manually created <a href="http://jane.dallaway.com/defensive-sql-updates">defensive SQL</a> change scripts with appropriate transactions and error handling.<p />SQL Compare is simple to use, works quickly and produces a detailed list of differences between database objects.  The differences that are detected are configurable, so you can choose to ignore or report upon white space or comment differences.<p />When you first open the screen you are presented with a screen offering options of what you want to compare.<p /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_bbwen" height="343" src="/media/getfile/files.posterous.com/import-wdma/AnvxvEICgvycmBuDydGixAeijAkbgaxrxkxEsfebDHxIpebqcnBJrDEolbFC/media_httpfarm4static_bbwEn.jpg.scaled500.jpg" width="500" />
+</div>
+<p />Once you have registered a couple of databases to compare, it is a short wait until the differences are displayed.<p /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_bjxjz" height="319" src="/media/getfile/files.posterous.com/import-wdma/HAJvnevwuoBhmjfpCgejpwlkAkeufhayDusssjfomEbcFuayyFIttuzktbtp/media_httpfarm4static_BjxJz.jpg.scaled500.jpg" width="500" />
+</div>
+<p />The display of differences are divided into:</p>
+<ul>
+<li>objects that appear on the source database but not the target</li>
+<li>objects that appear on the target database but not the source</li>
+<li>objects that appear on both databases but are different</li>
+<li>objects that are the same on both databases</li>
+</ul>
+<p><p /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_pgjdj" height="389" src="/media/getfile/files.posterous.com/import-wdma/AcwywtHEbEjuIGrxcrkjevpjIwBktsugznJsBfGoFyGGejqhtbyFefchIDin/media_httpfarm4static_pgjdj.jpg.scaled500.jpg" width="500" />
+</div>
+<p />For each object that is different you can choose to view the details of that object which will display a SQL based description of the object with the differences identified by a highlight line - sometimes it might be the whole object, a part of an object (i.e.a column definition) and sometimes it will be a constraint, or a grant statement that is missing.<p /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_nzcdu" height="389" src="/media/getfile/files.posterous.com/import-wdma/njIBjleHxketDrbdGFBCJBuIDrgbBnJDzadIxoqzCaxpbxAiACpqwHqkwpsp/media_httpfarm4static_nzcdu.jpg.scaled500.jpg" width="500" />
+</div>
+<p />From the summary screen you can select the changes that you're interested in and get SQL Compare to automatically synchonise your target database to match the source, or vice versa.  You can also get it to generate some SQL to do the generation to allow you to put your SQL upgrade scripts into a build process, or under source control.  In the majority of cases I will use this tool to check my upgrade scripts, rather than to produce them and if I spot any difference I tend to write my own, defensive, SQL to make the upgrade scripts.<p /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_vbpcc" height="394" src="/media/getfile/files.posterous.com/import-wdma/AnGCIGEffyItozskojcjzrnwwbtxzkpAHqFdtuyDrIDBunzbciBfICbExAev/media_httpfarm4static_vbpcC.jpg.scaled500.jpg" width="500" />
+</div>
+<p />In the 4 or so years I've been using SQL Compare I've found it to be a stable, evolving product which I have come to rely upon completely to check upgrade processes.  I made the most use of this tool at Glass's where I was working on a product which was client/server application where it couldn't be relied upon that the customer was always running the latest version.  Consequently, our preparation for release process involved installing the earliest supported version of the system, and upgrading it to the release candidate on one machine and installing a clean, new build of the release candidate from scratch and comparing the two and producing upgrade SQL scripts for any identified differences before starting the process again.  We also included a call to the command line version into the automated <a href="http://msdn.microsoft.com/en-us/library/0k6kkbsd.aspx">MSBuild</a> process producing an HTML report of the differences which could be used to fail the build if anything other than 0 differences was reported.</p>

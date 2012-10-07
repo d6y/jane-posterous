@@ -1,0 +1,39 @@
+title: Simple PHP script to output the rss links from an OPML file
+date: 2010/05/29 02:11:00 -0700
+tags: [{"name":"code","id":58669536},{"name":"php","id":11056973}]
+author: Jane Dallaway
+alias: /simple-php-script-to-output-the-rss-links-fro
+
+<p>My <a href="http://www.brightonbloggers.com/">BrightonBloggers</a> site offers an <a href="http://www.brightonbloggers.com/aggregated/">aggregated</a> display of the most recent 50 posts spotted.  It uses some php to consume an RSS file which is produced via some yahoo pipes manipulation which takes the <a href="http://www.brightonbloggers.com/brighton.opml">OPML</a> file and retrieves RSS from each listed site.  Someone reported an error with this yesterday, and after a bit of research it turned out that the yahoo pipes part was timing out.  My best guess was that one, or more, of the feeds listed in the OPML file were dead.  A quick hunt around google failed to find me anything to do a dead link check from an OPML file, so I quickly cobbled a partial solution - a PHP script to get the RSS links and output to HTML, and then I made use of the firefox add-on <a href="https://addons.mozilla.org/en-US/firefox/addon/532/">LinkChecker</a> to determine which were live or not.</p>
+<p>A sample line from my BrightonBloggers OPML file is:</p>
+<p> </p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;">&lt;outline type="rss" text="Jane Dallaway" htmlUrl="http://jane.dallaway.com" title="Jane Dallaway" xmlUrl="http://jane.dallaway.com/rss.xml"/&gt;</p>
+<div> </div>
+<div>and the php I'm using to consume it and work with it is</div>
+<div> </div>
+<div>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #3900ff;"><span style="color: #89afcc;">$file</span><span style="color: #000000;"> = </span>"http://brightonbloggers.com/brighton.opml"<span style="color: #000000;">;</span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #a10068;"><span style="color: #89afcc;">$lines</span><span style="color: #000000;"> = </span><span style="color: #9191b0;">file</span><span style="color: #000000;">(</span><span style="color: #89afcc;">$file</span><span style="color: #000000;">, </span>FILE_IGNORE_NEW_LINES<span style="color: #000000;"> | </span>FILE_SKIP_EMPTY_LINES<span style="color: #000000;">);</span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;"> </p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #89afcc;"><span style="color: #a10068;">foreach</span><span style="color: #000000;"> (</span>$lines<span style="color: #000000;"> </span><span style="color: #a10068;">as</span><span style="color: #000000;"> </span>$line_num<span style="color: #000000;"> =&gt; </span>$line<span style="color: #000000;">) </span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;">{</p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #319472;"><span style="color: #000000;"><span style=""> </span></span>// skip those that don't begin with &lt;outline type="rss"</p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #3900ff;"><span style="color: #000000;"><span style=""> </span></span><span style="color: #a10068;">if</span><span style="color: #000000;"> (</span><span style="color: #9191b0;">stristr</span><span style="color: #000000;">(</span><span style="color: #89afcc;">$line</span><span style="color: #000000;">,</span>"&lt;outline type=\"rss\""<span style="color: #000000;">) != </span><span style="color: #a10068;">FALSE</span><span style="color: #000000;">)</span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;"><span style=""> </span>{</p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #319472;"><span style="color: #000000;"><span style=""> </span></span>// find xmlUrl=" and get content between start and end " </p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #3900ff;"><span style="color: #000000;"><span style=""> </span></span><span style="color: #89afcc;">$checkFor</span><span style="color: #000000;"> = </span>"xmlUrl=\""<span style="color: #000000;">;</span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #89afcc;"><span style="color: #000000;"><span style=""> </span></span>$starter<span style="color: #000000;"> = </span><span style="color: #9191b0;">stripos</span><span style="color: #000000;">(</span>$line<span style="color: #000000;">, </span>$checkFor<span style="color: #000000;">);</span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;"><span style=""> </span><span style="color: #a10068;">if</span> (<span style="color: #89afcc;">$starter</span> &gt; 0)</p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;"><span style=""> </span>{</p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #89afcc;"><span style="color: #000000;"><span style=""> </span></span>$starter<span style="color: #000000;"> = </span>$starter<span style="color: #000000;"> + </span><span style="color: #9191b0;">strlen</span><span style="color: #000000;">(</span>$checkFor<span style="color: #000000;">);</span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;"><span style=""> </span>}</p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #89afcc;"><span style="color: #000000;"><span style=""> </span></span>$end<span style="color: #000000;"> = </span><span style="color: #9191b0;">stripos</span><span style="color: #000000;">(</span>$line<span style="color: #000000;">,</span><span style="color: #3900ff;">"\""</span><span style="color: #000000;">,</span>$starter<span style="color: #000000;">);</span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #89afcc;"><span style="color: #000000;"><span style=""> </span></span>$xmlurl<span style="color: #000000;"> = </span><span style="color: #9191b0;">substr</span><span style="color: #000000;">(</span>$line<span style="color: #000000;">,</span>$starter<span style="color: #000000;">,</span>$end<span style="color: #000000;"> - </span>$starter<span style="color: #000000;">); </span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;"><span style=""> </span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #319472;"><span style="color: #000000;"><span style=""> </span></span>//output the link, as a link</p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco; color: #3900ff;"><span style="color: #000000;"><span style=""> </span>    </span><span style="color: #a10068;">echo</span><span style="color: #000000;"> </span>"&lt;a href=\""<span style="color: #000000;">.</span><span style="color: #89afcc;">$xmlurl</span><span style="color: #000000;">.</span>"\"&gt;"<span style="color: #000000;">.</span><span style="color: #89afcc;">$xmlurl</span><span style="color: #000000;">.</span>"&lt;/a&gt;&lt;br /&gt;\n"<span style="color: #000000;">;</span></p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;"><span style=""> </span>}   </p>
+<p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Monaco;">}</p>
+</div>
+<p>After running the dead link checker through firefox, and then pruning or fixing dead links, the aggregated feed is working again</p>
+<p> </p>

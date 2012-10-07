@@ -1,0 +1,7 @@
+title: .NET and Cookies
+date: 2007/07/03 09:52:00 -0700
+tags: [{"name":".NET","id":3772943}]
+author: Jane Dallaway
+alias: /net-and-cookies
+
+My project involves several front end sites, all looking at one database and using one admin system and code base.  If you login to one of the sites, you don't automatically get logged in to the others.  So, I'm using a cookie name with a prefix based on the site name.  One of my sites has an &amp; in its name - something like A&amp;BSite.  When I attempt to login to this site, I get no errors but neither do I get logged in.  The code works happily for all the other sites, so I can only assume that either .NET, or the browsers (tried on IE7 and firefox) don't appreciate my use of an &amp;.  I've just updated the code to <span class="code">SiteName.Replace("&amp;","")</span> and all is happy and jolly once more.  Weird!<p />A quick straw poll around the office revealed that only one of the developers had come across this before.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-4451936416059621316?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

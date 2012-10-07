@@ -1,0 +1,7 @@
+title: SSIS - Can't debug script code in event handlers
+date: 2006/09/19 04:17:00 -0700
+tags: [{"name":"SQLServer","id":58646689}]
+author: Jane Dallaway
+alias: /ssis-cant-debug-script-code-in-event-handlers
+
+I was struggling to find a way to debug event handler scripts in SSIS, and thought I was missing something obvious (as did <a href="http://blogs.conchango.com/jamiethomson/archive/2006/01/19/2671.aspx">Jamie</a>).  Thanks to <a href="http://www.developerdotstar.com/community/node/334">Daniel Read</a> (again) I now know that I'm not the only one:<p /><i>b) Cannot debug script tasks in event handlers. This appears to be a bug. I can't get the debugger to stop on a line of code in a script task in an event handler. Strangely, if I set a break point in a script task in an event handler, a VBA code window will pop up for the first script task in the package (even though the breakpoint is not set in that task), but there will never be a break in the task where I set my breakpoint</i><div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-115866122757460128?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

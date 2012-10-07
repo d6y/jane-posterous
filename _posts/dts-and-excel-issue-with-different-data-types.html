@@ -1,0 +1,10 @@
+title: DTS and Excel issue with different data types
+date: 2006/07/27 04:43:00 -0700
+tags: [{"name":"SQLServer","id":58646821}]
+author: Jane Dallaway
+alias: /dts-and-excel-issue-with-different-data-types
+
+We encountered <a href="http://dotnetjunkies.com/WebLog/amar/archive/2005/03/11/59990.aspx">this known issue with DTS and Excel today</a>.  Instead of importing the model for cars with purely numeric models, like the 206, it imported NULLs.  After a lot of searching, we found some really <a href="http://groups.google.co.uk/group/microsoft.public.sqlserver.dts/browse_thread/thread/a97eca9c1d73840c/14b42dc176f11da9?lnk=st&amp;q=&amp;rnum=4&amp;hl=en#14b42dc176f11da9">useful information</a> and with this, and a bit of investigation I worked it out.<p />As they say, select to Disconnected Edit the DTS package, selecct the Excel Connection and expand the OLD DB properties.  In there is a property "Extender Properties".  Select this, and in the right hand pane update the Value to have IMEX=1.<br /><div class='p_embed p_image_embed'>
+<img alt="" src="/blog/img/DTSIMEX.jpg" />
+</div>
+<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-115399705188782156?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

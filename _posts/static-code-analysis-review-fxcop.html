@@ -1,0 +1,16 @@
+title: Static Code Analysis Review: FxCop
+date: 2008/06/06 10:34:00 -0700
+tags: [{"name":".NET","id":58673983},{"name":"howto","id":58671977},{"name":"review","id":3772698},{"name":"tool","id":58671974}]
+author: Jane Dallaway
+alias: /static-code-analysis-review-fxcop
+
+<p>This is a tool I've used in the past with success, but which I found frustrating by the lack of integration into the IDE, instead relying on its own, slightly gawky interface.<p /><div class='p_embed p_image_embed'>
+<img alt="Media_httpfarm4static_efstz" height="389" src="/media/getfile/files.posterous.com/import-wdma/lJFatclxagiswvEggEcyDmnxbHEntAazazeAfGGFFubGGpravEzzFxxiIhor/media_httpfarm4static_eFstz.jpg.scaled500.jpg" width="500" />
+</div>
+<p /></p>
+<h3>Configuration</h3>
+<p><br />Rules can be switched off, switched on, and also custom rules can be added - read this <a href="http://www.binarycoder.net/fxcop/">tutorial</a> for some useful hints and tips.  Rules can also be supressed on a project by project basis, or globally by updating the FxCop.targets file - this will be really handy for how we want to set our chosen tool up.<p /></p>
+<h3>Error detection</h3>
+<p><br />I left the rules as default, so they are based primarily on the <a href="http://www.binarycoder.net/fxcop/">Microsoft Design Guidelines</a>.  When run through the FxCop IDE a helpful link is provided to online documentation explaining the issue in more detail - for instance <a href="http://msdn.microsoft.com/en-gb/ms182127.aspx">AssembliesShouldHaveValidStrongNames</a> - and giving example fixes.  The quality of errors returned were much better than CodeIt.Right, referring both to coding standards (naming of variables etc), but also performance and security improvements.  There is no automagic correction meaning that developers learn from the warnings.<p /></p>
+<h3>Automation</h3>
+<p><br />There is a command line version of the tool available which can be built into an automated build process.  Additionally, this can be <a href="http://jane.dallaway.com/integrating-fxcop-into-visual-studio-2008">added as a post-build event</a> outputting the results into the Warnings tab of the Error window in VS2005 and VS2008.</p>

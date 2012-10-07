@@ -1,0 +1,80 @@
+title: TSQL: Enumations and constants
+date: 2008/07/18 06:24:00 -0700
+tags: [{"name":"code","id":58678547},{"name":"SQLServer","id":58646426}]
+author: Jane Dallaway
+alias: /tsql-enumations-and-constants
+
+<p><a href="http://siliconbea.ch/">Bruce</a> sent me a link the other day to an article <a href="http://www.olegsych.com/2008/07/t4-template-for-generating-sql-view-from-csharp-enumeration/">T4 template for generating SQL view from C# enumeration</a> which I found interesting from a modelling constants/enumerations in SQL viewpoint.<p />The example used was modelling an enumeration of ContactType which has valid items of Individual and Organisation.<p />The article used a view to model this, as per<span class="code"><br />CREATE VIEW enumContactType<br />AS<br />&nbsp;&nbsp;SELECT<br />&nbsp;&nbsp;&nbsp;&nbsp;0 AS Individual,<br />&nbsp;&nbsp;&nbsp;&nbsp;1 AS Organization</span><p />and then using it within a SELECT as<p /><span class="code">SELECT * <br />FROM Contact<br />WHERE Type = (SELECT Organization FROM enumContactType)</span><br />(Note: in the original article Oleg used a schema called enum, but I'm just ignoring this at the moment and have thus changed the name from enum.ContactType to enumContactType)<p /></p>
+<h2>An alternative</h2>
+<p><br />In my previous company, we used <a href="http://www.sqlteam.com/article/user-defined-functions">Scalar-Valued Functions</a> to mimic constants, and I guess this could be extended to enumerations.  I thought I'd re-create the above example and give it a try to see how it looks and compares.<p />So, to model the enumeration ContactType, I've created two functions as follows:<span class="code"><br />CREATE FUNCTION enumContactTypeIndividual()<br />RETURNS INT<br />AS<br />BEGIN<br />&nbsp;&nbsp;RETURN 0<br />END<br />GO<p />CREATE FUNCTION enumContactTypeOrganisation()<br />RETURNS INT<br />AS<br />BEGIN<br />&nbsp;&nbsp;RETURN 1<br />END<br />GO</span><p />And then to reproduce the SELECT query I wrote:<br /><span class="code">SELECT *<br />FROM Contact<br />WHERE Type = dbo.enumContactTypeOrganisation()</span><p />The resulting data matches that used in the VIEW model and provides an alternative.  I'm sure that a template could be written to produce those functions as an output as per the end part of <a href="http://www.olegsych.com/2008/07/t4-template-for-generating-sql-view-from-csharp-enumeration/">Oleg's article</a>.<p /></p>
+<h2>Performance and timings</h2>
+<p><br />I was interested in the relative performance of these two methods, so armed with my <a href="http://docs.google.com/leaf?id=0B_AkC4ZdTI9tMjdhNTZjMjEtNGJlMi00NzRiLTgzOTItMzA5NmMzYzY4NDNl&amp;hl=en_GB">timing code</a> from <a href="http://jane.dallaway.com/tsql-timings">last week</a> I checked them out.  I amended the SELECT to bring back the COUNT(*) FROM Contact into a local integer variable, and ran it 1000000 times.<p />The results are as follows:</p>
+<table>
+ 
+<tr>
+<td>Code</td>
+<td>Description</td>
+<td>TimeInMS</td>
+</tr>
+ 
+
+<tr>
+<td>EnumView</td>
+<td>Using the view</td>
+<td>13010</td>
+</tr>
+<tr>
+<td>EnumUDF</td>
+<td>Using the UDF</td>
+<td>21450</td>
+</tr>
+
+</table>
+<p><br />showing that the view method is more performant.<p />I then changed the <a href="http://blogs.msdn.com/sqlprogrammability/archive/2006/05/12/596424.aspx">function</a> to make use of SCHEMABINDING.  The new functions look like:<br /><span class="code">CREATE FUNCTION enumContactTypeIndividual()<br />RETURNS INT<br />WITH SCHEMABINDING<br />AS<br />BEGIN<br />&nbsp;&nbsp;RETURN 0<br />END<br />GO<p />CREATE FUNCTION enumContactTypeOrganisation()<br />RETURNS INT<br />WITH SCHEMABINDING<br />AS<br />BEGIN<br />&nbsp;&nbsp;RETURN 1<br />END<br />GO</span><p />And the timings change to be:</p>
+<table>
+ 
+<tr>
+<td>Code</td>
+<td>Description</td>
+<td>TimeInMS</td>
+</tr>
+ 
+
+<tr>
+<td>EnumView</td>
+<td>Using the view</td>
+<td>13010</td>
+</tr>
+<tr>
+<td>EnumUDF</td>
+<td>Using the UDF</td>
+<td>20280</td>
+</tr>
+
+</table>
+<p><br />which do reduce the time taken for the UDF but still means that the view is faster.<p />For interests sake I then ran a comparison timing against the code using the literal as:<br /><span class="code">SELECT *<br /> FROM Contact<br /> WHERE Type = 1</span><br />which resulted in</p>
+<table>
+ 
+<tr>
+<td>Code</td>
+<td>Description</td>
+<td>TimeInMS</td>
+</tr>
+ 
+
+<tr>
+<td>EnumLiteral</td>
+<td>Using the literal</td>
+<td>12043</td>
+</tr>
+
+</table>
+<p><br />showing it is faster, but not by much, than the view.<p /></p>
+<h2>Summary</h2>
+<p><br />So, what has this shown?</p>
+<ul>
+<li>Using a view is quite efficient and effective for modelling enumerations</li>
+<li>Using a UDF is an alternative, but is slower</li>
+<li>Schema binding makes UDF usage quicker</li>
+<li>The difference between using a VIEW and using the hard-coded literal isn't a lot in performance terms</li>
+</ul>

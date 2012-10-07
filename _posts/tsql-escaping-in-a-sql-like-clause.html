@@ -1,0 +1,26 @@
+title: TSQL: Escaping % in a SQL Like clause
+date: 2010/06/16 08:26:00 -0700
+tags: [{"name":"nts","id":11636359},{"name":"SQLServer","id":58646231}]
+author: Jane Dallaway
+alias: /tsql-escaping-in-a-sql-like-clause
+
+<p>Today I had cause to search a text field in a SQL Server 2005 database for the phrase %3 (I had some data being url encoded incorrectly) and this wasn't something I'd tried to do before so I had to find out how to escape the % sign.  A quick google and a re-read of the <a href="http://msdn.microsoft.com/en-us/library/ms179859.aspx">LIKE</a> syntax, and I discovered that to escape the % I had to do something like</p>
+<p>WHERE [Value] LIKE '%!%3%' ESCAPE '!'</p>
+<p>After talking this through with a colleague, he asked me to try some other escape characters, and here's what we found out:</p>
+<p>Attempting to use a string as an escape phrase, i.e.</p>
+<p>WHERE [Value] like '%WORD%1%' ESCAPE 'WORD'</p>
+<p>doesn't work, and fails with an error of</p>
+<p> </p>
+<blockquote class="posterous_short_quote">
+<p>Msg 506, Level 16, State 1, Line 1</p>
+<p>The invalid escape character "WORD" was specified in a LIKE predicate.</p>
+</blockquote>
+<p> </p>
+<p>Attempting to use % as the escape character, gets it quite confused </p>
+<p>WHERE [Value] like '%%%1%' ESCAPE '%'</p>
+<p>returns 0 rows, but no errors</p>
+<p> </p>
+<p>Attempting to use ' as an escape character, which needs to be escaped itself </p>
+<p> </p>
+<p>WHERE [Value] like '%''%1%' ESCAPE ''''</p>
+<p>returns the correct rows</p>

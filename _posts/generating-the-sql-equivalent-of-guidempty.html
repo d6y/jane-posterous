@@ -1,0 +1,12 @@
+title: Generating the SQL equivalent of Guid.Empty
+date: 2010/03/03 04:31:54 -0800
+tags: [{"name":"nts","id":4737385},{"name":"SQLServer","id":58646287}]
+author: Jane Dallaway
+alias: /generating-the-sql-equivalent-of-guidempty
+
+<p>I've been refactoring one of our projects today, and one of the areas I've been working on has been reducing 5 or 6 similar stored procedures into 1 more generic version. &nbsp;In doing this, I've had to add a couple of nullable parameters, one of which is a GUID. &nbsp;</p>
+<p>If it is specified, then I need to set an AssignedToUser column to be the GUID, and I also need to record the date of the assignment. &nbsp;I can do this all within the UPDATE statement, but I needed to only affect the assignment date when the GUID is specified. &nbsp;Enter the <a href="http://msdn.microsoft.com/en-us/library/ms184325.aspx" title="ISNULL">ISNULL</a> function, but what do I set my default value to when it is null? I really wanted to create a known GUID without hardcoding a fixed GUID - a SQL equivalent of <a href="http://msdn.microsoft.com/en-us/library/system.guid.empty.aspx" title="Guid.Empty">Guid.Empty</a>. &nbsp;A quick bit of googling and I came up with</p>
+<p><span style=""> </span>SELECT CAST(CAST(0 as BINARY) AS UNIQUEIDENTIFIER)</p>
+<p>which evaluates to&nbsp;</p>
+<p><span style=""> </span>00000000-0000-0000-0000-000000000000</p>
+<p>Job done, and recorded here so I can find it next time I need it</p>

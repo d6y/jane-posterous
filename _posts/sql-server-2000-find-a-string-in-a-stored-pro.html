@@ -1,0 +1,7 @@
+title: SQL Server 2000 - find a string in a stored procedure
+date: 2006/07/20 03:28:00 -0700
+tags: [{"name":"code","id":58678584},{"name":"SQLServer","id":3773152}]
+author: Jane Dallaway
+alias: /sql-server-2000-find-a-string-in-a-stored-pro
+
+I've been debugging and <a href="http://tsqlunit.sourceforge.net/">unit testing</a> some involved stored procedures, and I've left a trail of PRINT statements all over the place.  I was having real difficulties tracking the last 2 down, so I wrote the following SQL to help me track them down. <br /><span class="code"><br /> SELECT o.name <br /> FROM syscomments c<br /> INNER JOIN sysobjects o<br /> ON c.id = o.id<br /> WHERE o.xtype = 'P'<br /> AND text LIKE 'PRINT @'<br /></span><div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-115338798770560898?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

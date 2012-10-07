@@ -1,0 +1,7 @@
+title: SQL Server: Convert a string to proper case
+date: 2008/12/19 08:51:00 -0800
+tags: [{"name":"SQLServer","id":3772564}]
+author: Jane Dallaway
+alias: /sql-server-convert-a-string-to-proper-case
+
+I had a bug to fix today which was to convert some country names which were in upper case into proper case - i.e. to convert AUSTRALIA to be Australia.  SQL Server only provides functions to convert to <a href="http://msdn.microsoft.com/en-us/library/ms180055.aspx">upper case</a> and <a href="http://msdn.microsoft.com/en-us/library/ms174400.aspx">lower case</a> but I figured someone would have written a function already.  A quick search in google and I came across <a href="http://vyaskn.tripod.com/code.htm">Vyas's code library</a> amongst which was a link to a function called <a href="http://vyaskn.tripod.com/code/propercase.txt">ProperCase</a>.  The header says it is tested against SQL Server 2000, but I can confirm it has done the trick for me in SQL Server 2005 as well.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-5527840482655477111?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

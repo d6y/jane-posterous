@@ -1,0 +1,7 @@
+title: spu_generateInsert - PRINT statement limitation worked around
+date: 2009/04/17 08:50:00 -0700
+tags: [{"name":"download","id":58674213},{"name":"SQLServer","id":58674212}]
+author: Jane Dallaway
+alias: /spugenerateinsert-print-statement-limitation
+
+<p>Further to my <a href="http://jane.dallaway.com/spugenerateinsert-print-statement-limitation-0">earlier update today</a> I've reworked the printing out of the insert statements - mainly because I need it for the work I'm doing today...<p />It now produces a single statement per row of data, and then checks the <a href="http://msdn.microsoft.com/en-us/library/ms173486.aspx">DATALENGTH</a> of that statement.  If it exceeds the 8000 byte limit, then it looks for CHAR(10)/CHAR(13) characters and breaks the row into chunks based on these CHAR(10)/CHAR(13) limits.  <p />This relies on the fact that <br /><span class="code">PRINT 'Hello ' + CHAR(13) + 'World'</span><br />and<br /><span class="code">PRINT 'Hello'<br />PRINT 'World'</span><br />both produce the same output of<br /><span class="code">Hello <br />World</span><p />So, instead of <span class="code">PRINT</span>ing <span class="code">CHAR(13)</span> we're <span class="code">PRINT</span>ing multiple lines.<p />All of which seems to work and I can finally get the <p />As per usual, download the <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">spu_generateInsert</a> script <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">here</a>.</p>

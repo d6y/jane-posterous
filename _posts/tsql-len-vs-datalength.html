@@ -1,0 +1,7 @@
+title: TSQL: LEN vs DATALENGTH
+date: 2006/08/02 08:04:00 -0700
+tags: [{"name":"code","id":58678614},{"name":"SQLServer","id":3773148}]
+author: Jane Dallaway
+alias: /tsql-len-vs-datalength
+
+I encountered a TSQL issue this morning that I knew looked familiar.  When doing <span class="code">SELECT LEN(@strName)</span> it was returning less characters than I expected.  So, when doing <span class="code">SELECT LEN(' ')</span> I got a result of 0 instead of 1, when I did <span class="code">SELECT LEN('Jane ')</span> I got 4 rather than 5.  I'd forgotten about the fact that it trims off white space before returning data.  Thanks to <a href="http://sqljunkies.com/WebLog/amachanic/articles/ReflectRoutine.aspx">Adam Machanic</a> I refound DATALENGTH which does what I'd expect.<p />LEN defined in SQL Server Books online as <i>Returns the number of characters, rather than the number of bytes, of the given string expression, excluding trailing blanks.</i><p />DATALENGTH defined as <i>Returns the number of bytes used to represent any expression.  DATALENGTH is especially useful with varchar, varbinary, text, image, nvarchar, and ntext data types because these data types can store variable-length data.  The DATALENGTH of NULL is NULL.</i><div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-115452778200776886?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

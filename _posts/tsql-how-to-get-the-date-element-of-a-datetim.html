@@ -1,0 +1,7 @@
+title: TSQL - How to get the date element of a datetime object
+date: 2008/05/01 10:38:00 -0700
+tags: [{"name":"code","id":58678568},{"name":"SQLServer","id":3772729}]
+author: Jane Dallaway
+alias: /tsql-how-to-get-the-date-element-of-a-datetim
+
+In SQL Server 2000 and 2005 there is no concept of a <span class="code">DATE</span> data type, only a <span class="code">DATETIME</span>.  So, how do you get the <span class="code">DATE</span> element only, i.e. with a 00:00 time element.  One of my colleagues needed to do this, so after a bit of google searching he discovered the following.  <p /><span class="code">-- Get today's date without the time element<br />SELECT CONVERT(DATETIME,FLOOR(CONVERT(FLOAT,GETDATE())))</span><p />I would probably have done it via a <span class="code">CONVERT</span>/<span class="code">CAST</span> operation, converting to a <span class="code">VARCHAR</span> and then back to a <span class="code">DATETIME</span>, but this is a much more efficient method.<p />In SQL Server 2008 there is a <span class="code"><a href="http://www.sqlteam.com/article/using-the-date-data-type-in-sql-server-2008">DATE</a></span> data type so this will no longer be an issue.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-338865596221510962?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

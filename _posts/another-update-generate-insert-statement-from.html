@@ -1,0 +1,7 @@
+title: Another update - Generate Insert statement from table for SQL Server
+date: 2008/01/07 11:35:00 -0800
+tags: [{"name":"download","id":3772800},{"name":"SQLServer","id":3772801}]
+author: Jane Dallaway
+alias: /another-update-generate-insert-statement-from
+
+<p><a href="http://www.bruceboughton.me.uk/">Bruce</a> used my <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">spu_generateinsert</a> script today and identified a further issue, it didn't handle GUIDs properly.  I fixed that and did a spot of further testing on one of my test databases and discovered a collation issue, so I fixed that as well whilst I was at it.  The result is that it runs slower now, but specifies COLLATE database_default on each column to ensure that there are no "Cannot resolve collation conflict for column 1 in SELECT statement" errors raised.<p />As before, download it <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">here</a> and feel free to feed back any issues/improvements etc.</p>

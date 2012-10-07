@@ -1,0 +1,8 @@
+title: TSQL: Get a list of values into a comma separated list without using a UDF
+date: 2010/04/28 11:52:00 -0700
+tags: [{"name":"code","id":58678464},{"name":"SQLServer","id":58678462}]
+author: Jane Dallaway
+alias: /tsql-get-a-list-of-values-into-a-comma-separa
+
+<p>I needed to create a comma separated list from a series of values in a column in the database the other day, and being mindful of the affect of scalar UDFs on the query plan (after attending <a href="http://jane.dallaway.com/sqlbits-vi">SQLBits VI</a>) I looked around for an alternative method to <a href="http://jane.dallaway.com/sql-building-a-comma-separated-list-from-a-se">my previous favourite</a> using <a href="http://msdn.microsoft.com/en-us/library/ms190349.aspx">COALESCE</a>.  A couple of blog comments mentioned using <a href="http://msdn.microsoft.com/en-us/library/ms188043.aspx">STUFF</a> and <a href="http://msdn.microsoft.com/en-us/library/ms345137(SQL.90).aspx#forxml2k5_topic6">FOR XML PATH</a> to do this, and after a bit more research I found some examples from <a href="http://www.kodyaz.com/articles/concatenate-using-xml-path.aspx#">Kodyaz Development Resources</a> which seemed to do the trick<span style="font-family: Arial, Helvetica; font-size: 13px; font-weight: bold;"> </span></p>
+<p>SELECT <br />  STUFF(<br />    (<br />      SELECT ',' + &lt;ColumnName&gt;<br />      FROM &lt;TableName&gt;<br />      FOR XML PATH('')<br />    ), 1, 1, '') as CommaSeparatedList</p>

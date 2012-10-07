@@ -1,0 +1,7 @@
+title: spu_generateInsert - PRINT statement limitation
+date: 2009/04/17 06:45:00 -0700
+tags: [{"name":"download","id":3772536},{"name":"SQLServer","id":58674239}]
+author: Jane Dallaway
+alias: /spugenerateinsert-print-statement-limitation-72253
+
+<p>As mentioned in <a href="http://jane.dallaway.com/spugenerateinsert-checks-for-table-existence">my update yesterday</a> about <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">spu_generateInsert</a> there is a limitation on the TSQL <a href="http://msdn.microsoft.com/en-us/library/ms176047.aspx">PRINT</a> function which limits the output to 8000 bytes.<p />I'm about to try and make the procedure work within this limitation (a table I'm trying to script exceeds this), but in the meantime I've added an additional bit of error reporting which results in the final line in the messages window being displayed as:<br /><span class="code">-- ** WARNING: The data length for at least one row exceeds 8000 bytes.  The PRINT command is limited to 8000 bytes (for more information see <a href="http://msdn.microsoft.com/en-us/library/ms176047.aspx)">http://msdn.microsoft.com/en-us/library/ms176047.aspx)</a>.  Do not trust this data. ** --</span><br />so at least the user is informed of the issue.  <p />Download the <a href="https://github.com/janedallaway/SQL-Server-Helper-Scripts/blob/master/spu_generateInsert.sql">updated script</a> here.<p />As always, comments and suggestions are welcomed.</p>

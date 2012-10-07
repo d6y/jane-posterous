@@ -1,0 +1,7 @@
+title: SELECT COUNT(*) vs SELECT COUNT(colname)
+date: 2008/09/22 06:57:00 -0700
+tags: [{"name":"SQLServer","id":58678525}]
+author: Jane Dallaway
+alias: /select-count-vs-select-countcolname
+
+Richard mentioned <a href="http://www.mysqlperformanceblog.com/2008/09/20/a-common-problem-when-optimizing-count/">this article</a> to me yesterday, and was surprised at what it told him.  <p />To summarize:<p />SELECT COUNT() has 2 meanings:<ol><li>Count the number of rows</li><li>Count the number of values</li></ol>Sometimes these are the same thing, but not always.  <p /><span class="code">SELECT COUNT(*)</span> always counts the number of rows in the result<p /><span class="code">SELECT COUNT(colname)</span> counts the number of times that the column colname is not null<p />So, if colname is always populated the result will be the same but otherwise the value will be different.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-2089656058450321291?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

@@ -1,0 +1,32 @@
+title: RedGate SQL Search
+date: 2010/04/28 08:12:00 -0700
+tags: [{"name":"review","id":9127172}]
+author: Jane Dallaway
+alias: /redgate-sql-search
+
+<p>When I was at <a href="http://jane.dallaway.com/sqlbits-vi">SQLBits</a> the other week, I was introduced to Redgate's <a href="http://www.red-gate.com/products/SQL_Search/index.htm?utm_source=sqlsearchui&amp;utm_medium=textad&amp;utm_content=recommend_sql_search&amp;utm_campaign=sqlsearch">SQL Search</a> tool via their lunchtime session about Source Control in databases.</p>
+<p>SQL Search is a free tool which helps to:</p>
+<blockquote>
+<ul>
+<li>Find fragments of SQL text within stored procedures, functions, views and more</li>
+<li>Quickly navigate to objects wherever they happen to be on your servers</li>
+<li>Find all references to an object</li>
+<li>Integrates with SSMS</li>
+</ul>
+</blockquote>
+<p>I installed it on my machine a few days later and have had it happily running ever since, with no errors and no noticeable slowing of Management studio. I've come to use it quite a bit in my development process, mostly for looking for stored procedures as I find the process of</p>
+<ul>
+<li>type in a bit of a name of the procedure in the search box</li>
+<li>hit return</li>
+<li>look at the results returned</li>
+<li>click on the one that I want</li>
+<li>if necessary, click on the "Select object in Object Explorer" link</li>
+</ul>
+<p>to be a lot quicker than typing</p>
+<p>SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_NAME LIKE '%bit of a name of the procedure%'</p>
+<p>and then navigating through the object explorer to find the relevant object.</p>
+<p>The scope of the search can be narrowed to a specific object type on a specific database, or left open to every object type on every database on the instance.</p>
+<p><div class='p_embed p_image_embed'>
+<a href="/media/getfile/files.posterous.com/temp-2010-04-28/kfxIwkdBejylAxwgziqBmpFgkeHumkxmnGCovseJoDpzjegwcovoorDdgBEk/SQLSearch.png.scaled1000.png"><img alt="Sqlsearch" height="495" src="/media/getfile/files.posterous.com/temp-2010-04-28/kfxIwkdBejylAxwgziqBmpFgkeHumkxmnGCovseJoDpzjegwcovoorDdgBEk/SQLSearch.png.scaled500.png" width="500" /></a>
+</div>
+In summary, a good tool, especially at the price-point (free!) - go and <a href="http://www.red-gate.com/products/SQL_Search/index.htm?utm_source=google&amp;utm_medium=cpc&amp;utm_content=brand_aware&amp;utm_campaign=sqlsearch&amp;gclid=CLfdoM3SqaECFVKZ2AodbVrNEA#">download it now</a>...</p>

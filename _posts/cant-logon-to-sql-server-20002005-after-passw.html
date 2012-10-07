@@ -1,0 +1,7 @@
+title: Can't logon to SQL Server 2000/2005 after password change
+date: 2007/06/20 03:05:00 -0700
+tags: [{"name":"SQLServer","id":3772958}]
+author: Jane Dallaway
+alias: /cant-logon-to-sql-server-20002005-after-passw
+
+We have a strict password change policy <a href="http://www.madgex.com/">here</a>, and having changed my password yesterday I could no longer start either of my two local instances of SQL Server.<p />On an attempted start I got an error message:<br />"The MSSQLSERVER service was unable to log on as  with the currently configured password due to the following error: <br />Logon failure: unknown user name or bad password." error.<p />To resolve this I headed to Control Panel -> Services and selected MSSQLSERVER.  I right clicked, selected Properties and opened the Log On tab.  I updated the password and confirm password and then skipped back onto the General tab and started the service.  It worked :-).  I did the same with SQL Server (SQL2005), also successfully.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-8668849700802515106?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

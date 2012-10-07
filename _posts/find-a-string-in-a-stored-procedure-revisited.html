@@ -1,0 +1,7 @@
+title: Find a string in a stored procedure - Revisited
+date: 2008/06/30 07:53:00 -0700
+tags: [{"name":"code","id":58678566},{"name":"SQLServer","id":3772684}]
+author: Jane Dallaway
+alias: /find-a-string-in-a-stored-procedure-revisited
+
+<p>A little over 2 years ago I <a href="http://jane.dallaway.com/sql-server-2000-find-a-string-in-a-stored-pro">posted</a> a couple of methods of finding the instances of a string within stored procedures - at the time I'd left some debug 'Print @' code in at least one stored procedure and needed to find it before releasing the code.<p /> Today, I wanted to do the same thing, and as over the past 2 years I've been weaning myself off accessing the sysobjects tables, instead making use of the <a href="http://msdn.microsoft.com/en-us/library/ms186778.aspx">INFORMATION_SCHEMA views</a>, I decided it was time to add an update to that earlier post.<p />So, using <a href="http://msdn.microsoft.com/en-us/library/ms188757.aspx">INFORMATION_SCHEMA.ROUTINES</a> it is coded as :<br /><span class="code">&nbsp;&nbsp;SELECT SPECIFIC_NAME<br />&nbsp;&nbsp;FROM INFORMATION_SCHEMA.ROUTINES<br />&nbsp;&nbsp;WHERE ROUTINE_DEFINITION LIKE '%PRINT @%'</span></p>

@@ -1,0 +1,42 @@
+title: TSQL - Timings
+date: 2008/07/07 12:11:00 -0700
+tags: [{"name":"code","id":58678564},{"name":"SQLServer","id":58646440}]
+author: Jane Dallaway
+alias: /tsql-timings
+
+<p>A while ago I blogged about <a href="http://jane.dallaway.com/tsql-how-to-get-the-date-element-of-a-datetim">how to get the date element of a datetime column</a> in TSQL.  In that post I said</p>
+<blockquote class="posterous_short_quote">I would probably have done it via a CONVERT/CAST operation, converting to a VARCHAR and then back to a DATETIME, but this is a much more efficient method.</blockquote>
+<p><br />but I didn't prove it at the time.  I gave it some more thought and wanted to know what the differences were, so I wrote some <a href="http://docs.google.com/leaf?id=0B_AkC4ZdTI9tMjdhNTZjMjEtNGJlMi00NzRiLTgzOTItMzA5NmMzYzY4NDNl&amp;hl=en_GB">timings</a> code.  <p />This script creates one table <span class="code">Timings</span> with columns of <span class="code">Code</span>, <span class="code">Description</span>, <span class="code">ActionTime</span> and <span class="code">IsComplete</span>.  It has a combined primary key of Code and IsComplete.  Code must be unique - and can be a string of up to 10 characters long to uniquely identify the action being timed.  IsComplete is used to differentiate between the start time and end time of the process being monitored.<p />The script also creates 3 stored procedures:</p>
+<ul>
+<li><span class="code">up_RecordStart</span> which takes 2 parameters - the unique code and optional description.  This is used to record the start of the activity being monitored.</li>
+<li><span class="code">up_RecordEnd</span> which takes just 1 parameter - the code - should match the code used in up_RecordStart.  This is used to record the end of the activity being monitored.</li>
+<li><span class="code">up_GetTimings</span> which again takes just 1 parameter - the code to return the timings from.  It then returns the Code, Description and the length of time the action took in ms.</li>
+</ul>
+<p><br />I wrote some script to then use these objects to test the assertion I made that FLOOR and combinations of converting DATETIME to FLOAT etc would be more efficient than using either CAST or CONVERT to VARCHAR(12) and back again to a DATETIME.<p /><span class="code">------------------------------<br />-- Clean up before we start --<br />------------------------------<br />DELETE FROM Timings<br />WHERE Code IN ('FLR','CONVERT','CAST')<br />GO<p /> ---------------------<br />-- Try using Floor --<br />---------------------<br />EXEC up_RecordStart @Code='FLR', @Description='SELECT CONVERT(DATETIME,FLOOR(CONVERT(FLOAT,GETDATE())))'<br />GO<p /> DECLARE @i AS INTEGER<br />DECLARE @floorDate AS DATETIME<br />SET @i = 0<p /> WHILE @i &lt; 1000000 -- try the next statement for 1000000 times - this should be enough to see some differences<br />BEGIN<p /> &nbsp;&nbsp;SET @floorDate = CONVERT(DATETIME,FLOOR(CONVERT(FLOAT,GETDATE())))<br />&nbsp;&nbsp;SET @i = @i + 1<br />END<br />PRINT @floorDate<br />GO<p /> EXEC up_RecordEnd @Code='FLR'<br />GO<p /> -----------------------<br />-- Try using convert --<br />-----------------------<br />EXEC up_RecordStart @Code='CONVERT', @Description='SELECT CONVERT(DATETIME,CONVERT(VARCHAR(12),GETDATE()))'<br />GO<p /> DECLARE @i AS INTEGER<br />DECLARE @floorDate AS DATETIME<br />SET @i = 0<br />WHILE @i &lt; 1000000<br />BEGIN<p /> &nbsp;&nbsp;SET @floorDate = CONVERT(DATETIME,CONVERT(VARCHAR(12),GETDATE()))<br />&nbsp;&nbsp;SET @i = @i + 1<br />END<br />PRINT @floorDate<br />GO<p /> EXEC up_RecordEnd @Code='CONVERT'<br />GO<p /> --------------------<br />-- Try using Cast --<br />--------------------<br />EXEC up_RecordStart @Code='CAST', @Description='SELECT CAST(CAST(GETDATE() AS VARCHAR(12)) AS DATETIME)'<br />GO<p /> DECLARE @i AS INTEGER<br />DECLARE @floorDate AS DATETIME<br />SET @i = 0<br />WHILE @i &lt; 1000000<br />BEGIN<p /> &nbsp;&nbsp;SET @floorDate = CAST(CAST(GETDATE() AS VARCHAR(12)) AS DATETIME)<br />&nbsp;&nbsp;SET @i = @i + 1<br />END<br />PRINT @floorDate<br />GO<p /> EXEC up_RecordEnd @Code='CAST'<br />GO<p /> -------------------------<br />-- Now get the timings --<br />-------------------------<br />EXEC up_GetTimings 'FLR'<br />GO<p /> EXEC up_GetTimings 'CONVERT'<br />GO<p /> EXEC up_GetTimings 'CAST'<br />GO</span><p /> This results in the following data being returned:</p>
+<table>
+ 
+<tr>
+<td>Code</td>
+<td>Description</td>
+<td>TimeInMS</td>
+</tr>
+ 
+
+<tr>
+<td>FLR</td>
+<td>SELECT CONVERT(DATETIME,FLOOR(CONVERT(FLOAT,GETDATE())))</td>
+<td>1313</td>
+</tr>
+<tr>
+<td>CONVERT</td>
+<td>SELECT CONVERT(DATETIME,CONVERT(VARCHAR(12),GETDATE()))</td>
+<td>3236</td>
+</tr>
+<tr>
+<td>CAST</td>
+<td>SELECT CAST(CAST(GETDATE() AS VARCHAR(12)) AS DATETIME)</td>
+<td>3203</td>
+</tr>
+
+</table>
+<p><br />which shows that the method using FLOOR <strong>is</strong> more efficient, and that there isn't a lot to chose between CONVERT and CAST</p>

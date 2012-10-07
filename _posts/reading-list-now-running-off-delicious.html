@@ -1,0 +1,14 @@
+title: Reading list now running off del.icio.us
+date: 2006/10/04 12:13:00 -0700
+tags: [{"name":"tool","id":58668918}]
+author: Jane Dallaway
+alias: /reading-list-now-running-off-delicious
+
+<p>I did some more tinkering last night, and changed the <a href="http://jane.dallaway.com/booklist.html">Reading</a> page.  On del.icio.us I've set up some tags to indicate things (primarily books) that I've <a href="http://del.icio.us/Ull/read">read</a> or am currently <a href="http://del.icio.us/Ull/reading">reading</a>.  In addition I've also got a set of articles and books <a href="http://del.icio.us/Ull/toread">to read</a>.<p />I started off finding the html links and so used the object tag to reference the html.<br /><span class="code"><object></object></span><br />which produces<br /> 
+<object>
+</object>
+<br />and of course by introducing height and width tags it can be made to look a lot better<br /> 
+<object height="142" width="500">
+</object>
+<p />This was a good start, but I wanted to have my styling used, rather than the browser default styling.  So, I had another hunt around the <a href="http://del.icio.us/help/">del.icio.us help</a> and found a page about <a href="http://del.icio.us/help/linkrolls">linkrolls</a> which seemed to do 95% of what I wanted.<p />So, with a bit of javascript code<br /><span class="code">&lt;script type="text/javascript" src="http://del.icio.us/feeds/js/Ull/reading?extended?extended;bullet=%E2%80%A2"&gt;&lt;/script&gt;</span><br />I get to display the most recent links saved to the reading tag in my list of del.icio.us bookmarks.  Using this method I get to supplement my current styles with those provided through the <a href="http://del.icio.us/doc/feeds/js/styling">styling</a>.  Some day I may try and change it to get the extra 5% of functionality I wanted but this is good enough for now.<p />This is the third incarnation of a book list, but this is by far the simplest and easiest to maintain.</p>
+<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-115998638769105726?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

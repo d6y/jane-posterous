@@ -1,0 +1,7 @@
+title: SQL Server Log truncation
+date: 2005/07/14 05:44:00 -0700
+tags: [{"name":"SQLServer","id":3773176}]
+author: Jane Dallaway
+alias: /sql-server-log-truncation
+
+One of our customers has been having disk spaces issues, this has not been helped by the fact that they have a large SQL Server 2000 log file for one of our databases.  I couldn't work out why it was so large, as our automated backup should truncate the log files on a daily basis.  What I didn't know was that once a log file has disk space allocated to it, it doesn't give it back - instead you must run <a href="http://support.microsoft.com/default.aspx?scid=kb;en-us;272318">DBCC SHRINKFILE(databasename_log, 2)</a>.  The customer had run without backups working for several weeks, and so consequently the log file had grown quite large, and a larger than necessary amount of disk space had been allocated.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-112134191989041031?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

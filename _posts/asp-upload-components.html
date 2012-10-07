@@ -1,0 +1,15 @@
+title: ASP Upload Components
+date: 2002/05/03 06:37:00 -0700
+tags: [{"name":"asp","id":58678843}]
+author: Jane Dallaway
+alias: /asp-upload-components
+
+<p>Crossposted from <a href="http://www.janeandrichard.co.uk">JaneandRichard</a><p /> Today I've been researching Upload components for ASP to use in the project I'm working on at the moment.  Ideally I want one that does the following:</p>
+<ul>
+<li>Uploads a file from the client's file system, directly into the database</li>
+<br />
+<li>Can upload all types of files, not just images</li>
+</ul>
+<p><p />I had a quick discussion on <a href="http://brightonnewmedia.org/pipermail/bnmlist/2002-May/006819.html">BNM</a> about this, and also consulted <a href="http://www.15seconds.com/focus/Upload.htm">15 Seconds</a>.</p>
+<p>&nbsp;</p>
+<p><p />I decided to try <a href="http://www.aspupload.com/">ASPUpload</a> first, as this was recommended both by BNM and by an ex-colleague of mine.  I got this working pretty quickly, but it doesn't seem to be able to present me with the Mime Type (i.e. image/gif etc) and so isn't very useful for handling different kinds of binary data.  I know that I could code around this issue, but I'd rather it did it all for me really.<p />My next thought was to try <a href="http://www.softartisans.com/softartisans/saf.html">SA File Up</a>, a product I've used many times before.  Unfortunately their evaluation copy expires on 1 May 2001, that's 2 days ago - helpful.<p />Attempt 3 was <a href="http://www.websupergoo.com/abcupload-1.htm">ABCUpload</a>.  On the plus side, this is a free product.  This took a bit longer to get to work, as the help documents are not as comprehensive as ASPUpload.  Hidden, on the <a href="http://www.websupergoo.com/helpupload/4-objectref/2-xfield/default.htm">Object Reference page</a> I found the property I was looking for - MIMEType.  Woohoo!  But alas, it only seems to be able to work out the Mime Types for images so, PDFs etc are out of the question.  And more annoying still, it won't even upload the damn things.  Bah!<p />Attempt number 4.  The last of the BNM recommendations.  <a href="http://www.dundas.com/subFrame.asp?products/asp/upload/index.asp">Dundas Upload</a>.  Another free offering.  The examples don't seem to cover saving to a database, but a more thorough hunt through the <a href="http://www.dundas.com/products/onlineDocs/FreeProds/Upload/Tutorial_3_ADO_Support_and_Saving_a_File_as_a_BLOB.htm">documentation</a> found it hidden away.  This component has a ContentType property, and seems to insert pdfs, excel spreadsheets as well, so we might just have found our answer.  Hurrah!</p>

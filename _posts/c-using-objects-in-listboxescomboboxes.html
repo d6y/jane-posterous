@@ -1,0 +1,7 @@
+title: C# - Using Objects in ListBoxes/ComboBoxes
+date: 2005/07/22 06:56:00 -0700
+tags: [{"name":"Development","id":3773170}]
+author: Jane Dallaway
+alias: /c-using-objects-in-listboxescomboboxes
+
+As I become more "object oriented" in my development approach (I've done VB for too long) I was struggling to get ComboBoxes and ListBoxes to accept and display an object appropriately rather than just populating the list with a string, and then using an index or string lookup to find the appropriate item.<p />The other day I had a sniff around the internet and thought that the <a href="http://winfx.msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/winfx/ref/ns/system.windows.forms/c/listcontrol/e/format.asp">Format</a> event might help, and today I managed to get it to work.  <p />If I have a combobox called myList, and I've assigned a Person object to it as <br />myList.Items.Add(person).  I then need to register the event Format as:<p />private void myList_Format(object sender, ListControlConvertEventArgs e)<br />{<br />    e.value = ((Person)e.ListItem).Surname;<br />}<p />myList will then be populate with the Surname of the Person, but the myList.SelectedItem will hold the object currently selected.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-112203747629610418?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

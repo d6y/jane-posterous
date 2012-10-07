@@ -1,0 +1,7 @@
+title: ASP.NET debugging error - EXECUTE permission denied on object 'sp_sdidebug', database 'master', owner 'dbo'
+date: 2009/11/03 08:16:00 -0800
+tags: [{"name":".NET","id":58672263},{"name":"howto","id":58672270}]
+author: Jane Dallaway
+alias: /aspnet-debugging-error-execute-permission-den
+
+When debugging an old project using <a href="http://msdn.microsoft.com/en-us/library/c6wf8e4z.aspx">Attach to process</a> I got the following error message<br /><span class="code">EXECUTE permission denied on object 'sp_sdidebug', database 'master', owner 'dbo'.</span><br />I checked the project properties, and only the ASP.NET debugger option was checked. A bit of a search around the internet found lots of different suggestions. But, the one that actually worked was one I found amongst <a href="http://social.msdn.microsoft.com/Forums/en-US/vsdebug/thread/9fda1509-d9e8-4cee-977b-86ff6c53a43b">this forum post</a> which basically gives a solution of:<br /><ul><li>Choose the menu option Debug -> Attach to Process</li><li>In the Attach to Process dialog look in the Attach to: section, if it says "Automatic Native code", then click on Select and choose Managed and Native</li><li>Select the aspnet_wp.exe process</li><li>Press Attach</li></ul><br />I can now happily debug.  Yay!<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-4163312584989686802?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

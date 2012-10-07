@@ -1,0 +1,33 @@
+title: Kindle: Getting the notes and highlights for a specific book into a text file
+date: 2011/02/02 09:01:00 -0800
+tags: [{"name":"applescript","id":58669721},{"name":"download","id":35132282},{"name":"reading","id":58669708},{"name":"tool","id":35132281}]
+author: Jane Dallaway
+alias: /kindle-getting-the-notes-and-highlights-for-a
+
+<p>I've been making a lot of use of my Amazon kindle, but I was mildly annoyed that only annotations and highlights from Amazon purchased books end up on the <a href="https://kindle.amazon.com/">kindle.amazon.com</a> site. &nbsp;After doing a bit of reading, I discovered that the highlights and annotations are stored in 2 places on the kindle itself. &nbsp;Firstly embedded in the .mbp files that can be found in the Documents folder when the kindle is mounted, and secondly in the My Clippings.txt file, found in the same place.</p>
+<p>The applications and scripts I found to query the mbp files seemed to only return the last few annotations/highlights, which wasn't what I wanted. &nbsp;I found a few applications that were windows based, but couldn't find anything for the mac, so, I decided to roll up my sleeves and do battle with applescript to write something that did what I wanted.</p>
+<p>What I wanted was :</p>
+<ul>
+<li>To use the My Clippings.txt file so I got all the highlights/annotations</li>
+<li>To produce a text file per book listing highlights and annotations ordered by location</li>
+<li>Optionally add the location to the end of the highlight/annotation</li>
+</ul>
+<p>I used a couple of my Wednesday afternoon's at home to write the script, learnt quite a lot about applescript in the process, and polished my swearing as I got more and more frustrated with applescript and myself. &nbsp;</p>
+<p>Originally I intended to spend some time refactoring and making it look prettier, but I've got it doing pretty much what I wanted, and having spoken to a few people, they thought it was probably useful as a starter for anyone else who wanted to do something similar.</p>
+<p>So, I've added it to my <a href="http://jane.dallaway.com/pages/downloads-12">downloads</a> page and made it available <a href="https://github.com/janedallaway/Kindle-Helper-Scripts">here</a>. &nbsp;The usual disclaimer applies - use at your own risk. &nbsp;If you refactor this to be prettier/more efficient I'd love to see the changes.</p>
+<p><img src="http://farm5.static.flickr.com/4079/5410971986_641f88a3e6.jpg" height="493" alt="applescript editor" width="500" /></p>
+<p>To use it:</p>
+<ul>
+<li>Open the file in the applescript editor</li>
+<li>Take a look at the code if you wish - I've tried to comment the methods etc</li>
+<li>Run the code</li>
+<li>A dialog will be displayed asking you to select your My Clippings.txt file - I've been copying this off the kindle and on to my desktop to ensure I can't destroy the original at all</li>
+<li>A second dialog will be displayed asking you to select an output folder to put the text files in</li>
+<li>A message box will be displayed asking you if you want to delete all files currently in the folder - the default is no</li>
+<li>A message box will be displayed asking you if you want the location data appending to the end of a highlight/annotation - the default is yes</li>
+<li>The script will then work through the My Clippings.txt file producing a text file per annotated/highlighted book (no bookmarks are output)</li>
+<li>A final message box will be displayed telling you how many files it has output</li>
+</ul>
+<p>Hope <a href="https://github.com/janedallaway/Kindle-Helper-Scripts">this script</a> proves useful to someone.</p>
+<ul>
+</ul>

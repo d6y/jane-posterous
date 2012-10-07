@@ -1,0 +1,48 @@
+title: SQL Server - Find out if an index is being used
+date: 2010/05/12 04:43:00 -0700
+tags: [{"name":"SQLServer","id":10118820}]
+author: Jane Dallaway
+alias: /sql-server-find-out-if-an-index-is-being-used
+
+<div style="color: #000000; font-family: Arial, Helvetica, sans-serif; font-size: 13px; background-color: #ffffff; margin: 8px;">
+<p>As I mentioned yesterday, I'm doing some SQL performance tuning at the moment, and I've ended up looking at a series of indexes and trying to work out which are being used, and which aren't.  A quick google led me to <a href="http://blog.sqlauthority.com/2008/10/03/sql-server-2008-find-if-index-is-being-used-in-database/">this blog post</a> which gave me a script (which I've since adapted) based on <a href="http://msdn.microsoft.com/en-us/library/ms188755.aspx">sys.dm_db_index_usage_stats</a></p>
+<blockquote>
+<p>SELECT </p>
+<p><span style=""> </span>DISTINCT OBJECT_NAME(sis.OBJECT_ID) TableName, </p>
+<p><span style=""> </span>si.name AS IndexName, </p>
+<p><span style=""> </span>sis.user_seeks, </p>
+<p><span style=""> </span>sis.user_scans, </p>
+<p><span style=""> </span>sis.user_lookups, </p>
+<p><span style=""> </span>sis.user_updates</p>
+<p>FROM sys.dm_db_index_usage_stats sis</p>
+<p>INNER JOIN sys.indexes si </p>
+<p>ON sis.OBJECT_ID = si.OBJECT_ID </p>
+<p>AND sis.Index_ID = si.Index_ID</p>
+<p>WHERE sis.Database_ID = DB_ID('&lt;Database Name&gt;')</p>
+</blockquote>
+<p>which shows me all the indexes that are present for my database.</p>
+<p> </p>
+<p>Further restrictions can be made as follows:</p>
+<p> </p>
+<blockquote class="posterous_short_quote">
+<p>WHERE sis.Database_ID = DB_ID('&lt;Database Name&gt;')</p>
+<p>AND sis.OBJECT_ID = OBJECT_ID('&lt;table name&gt;')</p>
+</blockquote>
+<p>which shows me all the indexes for my database and my specified table</p>
+<p> </p>
+<blockquote class="posterous_short_quote">
+<p>WHERE sis.Database_ID = DB_ID('&lt;Database Name&gt;')</p>
+<p>AND sis.OBJECT_ID = OBJECT_ID('&lt;table name&gt;')</p>
+<p>AND si.name = '&lt;index name&gt;'</p>
+</blockquote>
+<p>which shows me all the indexes for my database, my specified table and my specified index</p>
+<p> </p>
+<blockquote class="posterous_short_quote">
+<p>WHERE sis.Database_ID = DB_ID('&lt;Database Name&gt;')</p>
+<p>AND sis.user_seeks = 0</p>
+<p>AND sis.user_scans = 0</p>
+<p>AND sis.user_lookups = 0</p>
+</blockquote>
+<p>which shows me all the indexes in the database which aren't being used - Note: the values held by sys.dm_db_index_usage_stats get reset after a restart of the SQL service</p>
+<p> </p>
+</div>

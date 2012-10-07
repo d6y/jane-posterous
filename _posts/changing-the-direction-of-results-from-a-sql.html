@@ -1,0 +1,15 @@
+title: Changing the direction of results from a SQL Server ORDER BY clause
+date: 2010/07/22 06:27:00 -0700
+tags: [{"name":"code","id":58678452},{"name":"SQLServer","id":13559050}]
+author: Jane Dallaway
+alias: /changing-the-direction-of-results-from-a-sql
+
+<p>I have a stored procedure which returns me a list of items, and I want the directional order of them to change based on a parameter. I didn't want to resort to dynamic SQL, so I had a bit of a hunt around and found the excellent blog post <a href="http://www.dominicpettifer.co.uk/Blog/21/dynamic-conditional-order-by-clause-in-sql-server-t-sql">Dynamic/Conditional Order By Clause in SQL Server/T-SQL</a>.  Here's my result:</p>
+<p> </p>
+<p>CREATE Procedure [dbo].[mp_GetItems]<br />(<br /><span style=""> </span>@OldestFirst BIT<br />)<br />AS<br />SELECT <br />  Item.ID, Item.Description<br />FROM <br /><span style=""> </span>Items<br />ORDER BY <br />  CASE WHEN @OldestFirst = 1 THEN CreatedDate END ASC,<br />  CASE WHEN @OldestFirst = 0 THEN CreatedDate END DESC</p>
+<p>GO</p>
+<p>which works a treat. The key is, as mentioned in the blog post</p>
+<blockquote class="posterous_short_quote">
+<p>Ascending and Descending actions need to be grouped into separate CASE statements, separated with a comma</p>
+</blockquote>
+<p> </p>

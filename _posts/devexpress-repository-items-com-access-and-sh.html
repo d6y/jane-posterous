@@ -1,0 +1,7 @@
+title: DevExpress Repository Items, COM, Access and ShowPopupShadow
+date: 2006/01/30 06:25:00 -0800
+tags: [{"name":".NET","id":58678757}]
+author: Jane Dallaway
+alias: /devexpress-repository-items-com-access-and-sh
+
+We've had a really weird bug to try and fix recently.  We're using the <a href="http://www.devexpress.com/Products/NET/XtraGrid/">DevExpress Xtra Grid</a> functionality and have a grid with a list box on it which is displayed when you enter the cell.  This all works fine through .Net, and also fine through COM when called from VB.  When being called from Access VBA however, I get an exception raised from System.ComponentModel.Win32Exception saying "The parameter is incorrect" (twice).<p />After a lot of code removing, I could reproduce the problem by just putting any popup based RepositoryItem on to a form (i.e. coloredit, combobox, listbox etc) and calling it through Access VBA.  We raised this with DevExpress as a bug.<p />Whilst waiting for them to get back to us, we found a solution.  By setting the ShowPopupShadow property to false, this exception will not be raised.<div class="blogger-post-footer"><img class="posterous_download_image" src="https://blogger.googleusercontent.com/tracker/14400377-113862793980541537?l=jane.dallaway.com%2Fblog%2Fblog.html" height="1" alt="" width="1" /></div>

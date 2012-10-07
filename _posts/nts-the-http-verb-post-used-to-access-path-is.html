@@ -1,0 +1,7 @@
+title: NTS: The HTTP verb POST used to access path '' is not allowed
+date: 2009/05/22 08:34:00 -0700
+tags: [{"name":".NET","id":3772517},{"name":"nts","id":3772519}]
+author: Jane Dallaway
+alias: /nts-the-http-verb-post-used-to-access-path-is
+
+<p>Another for the <a href="http://jane.dallaway.com/tag/nts">Note To Self</a> list<p />A lot of our sites use a url mapper, so when setting up the sites within IIS we map extension .* to the appropriate aspnet_isapi.dll.  <p />I'd got carried away when setting up the webservice and did the same thing, resulting in a <span class="code">The HTTP verb POST used to access path '/WebService/WebService.asmx/DoSomething' is not allowed.</span> error.  Removing the .* mapping fixes this.</p>
